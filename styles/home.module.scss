@@ -1,0 +1,16 @@
+/* Yeetnite description paragraph on the home page */
+.homeDescription {
+    padding-top: 4%;
+    font-size: 25px;
+    text-align: center;
+}
+.disable-select {
+    user-select: none;
+}
+/* Change the padding on the description paragraph for mobile screens (< ≈1000px) */
+@media only screen and (max-width: 1000px) {
+    .homeDescription {
+        padding-top: 10%;
+        font-size: 20px;
+    }
+}

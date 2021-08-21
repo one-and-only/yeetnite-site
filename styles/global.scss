@@ -1,0 +1,95 @@
+$theme-colors: (
+    "primary": #a22fc9,
+    "info": #aaaaaa,
+    "danger": #dc3545,
+    "secondary": #10d7ff
+);
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: Burbank;
+    src: url("../public/fonts/burbank.woff2") format("woff2");
+    font-display: swap;
+}
+.signature-navbar {
+    background: linear-gradient(310deg, #9326ae, #51a4fd);
+    font-family: Burbank;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+// custom Nav.Link
+.customnav-link {
+    font-size: 25px;
+    color: white;
+    transition: .5s;
+    text-decoration: none;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+.customnav-link:hover {
+    color: black;
+}
+.signature-dropdown {
+    border: 5px solid white;
+    color: white;
+    border-radius: 15px;
+}
+.signature-dropdown:hover {
+    border: 5px solid black;
+    color: black;
+    border-radius: 15px;
+}
+.signature-button {
+    font-size: 18px;
+    border-radius: 5px;
+}
+.signature-button:hover {
+    background: #a675dd;
+}
+.muted-text {
+    color: #c5c5c5;
+}
+.fade-in {
+    animation: fadeIn ease 2s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+// Center images and such
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-theme {
+    background-color: #2c2c2c;
+}
+.modal-xbutton {
+    color: white;
+}
+body {
+    background-color: #2c2c2c;
+    color: white;
+}
+.btn-close {
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}
+// Setup differences in light mode
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+        color: black;
+    }
+    .muted-text {
+        color: #7e7e7e;
+    }
+    .modal-theme {
+        background-color: white;
+    }
+    .btn-close {
+        background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='black'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    }
+}
