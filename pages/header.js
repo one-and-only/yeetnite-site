@@ -1,55 +1,156 @@
-// TODO: Add <html lang="..."> attribute
-
+// Next.js
 import Head from 'next/head';
 import Image from 'next/image';
+// Bootstrap
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown'
+// React.js
 import { useEffect, useState } from 'react';
-// static image imports get cached efficiently
+// Static image imports get cached efficiently
 import brandImg from '../public/favicons/android-chrome-192x192.png';
-
+//SweetAlert2
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const ReactSwal = withReactContent(Swal);
+/**
+ * Default component for the Header
+ */
 export default function Header() {
+    const [usernameState, setUsername] = useState(false);
+    const [themeColorState, setThemeColor] = useState("#2c2c2c");
     // initially don't show the modals
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [userState, setUserState] = useState({
-        theme: "dark",
-        themeColor: "#2c2c2c",
-        username: null,
-    });
 
     // localStorage is only usable in CSR
     useEffect(() => {
         const yeetnite_user = localStorage.getItem("yeetnite_user");
-        (yeetnite_user != null) ? setUserState(JSON.parse(yeetnite_user)) : null;
+        (yeetnite_user != null) && setUsername(JSON.parse(yeetnite_user).username);
+
+        // set proper color theme for meta tag
+        // changes to the color theme need a page reload to take effect
+        window.matchMedia("(prefers-color-scheme: light)").matches && setThemeColor("#ffffff");
     }, []);
+
+    /**
+     * Show a SweetAlert with the Yeetnite template
+     * @param  {string} type - The type of the alert
+     * @param  {JSX.Element} title - Title of the alert
+     * @param  {string} html - HTML (stringified) that shows as the body of the alert
+     */
+    async function sweetAlert(type, title, html) {
+        let icon;
+        switch (type) {
+            case "success":
+                icon = "success";
+                break;
+            case "error":
+                icon = "error";
+                break;
+            default:
+                icon = "question";
+                break;
+        }
+        ReactSwal.fire({
+            title: title,
+            icon: icon,
+            html: html,
+            footer: '©2021 The Yeetnite Team',
+            customClass: {
+                closeButton: 'btn btn-info',
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-danger',
+                cancelButton: 'btn btn-info',
+            },
+            buttonsStyling: false,
+            timer: 5000,
+        });
+    }
 
     /**
      * Handle Login request
      */
-    function processLogin() {
+    async function processLogin() {
         const username = document.getElementById("formBasicUsernameLogin").value;
         const password = document.getElementById("formBasicPasswordLogin").value;
+        await fetch(`/api/user?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`).then(response => response.json().then(responseJson => {
+            if (responseJson.success) {
+                localStorage.setItem("yeetnite_user", JSON.stringify(responseJson.user));
+                setUsername(responseJson.user.username);
+                sweetAlert('success', <p>Login Successful</p>, `<p>You are now logged in as <b>${responseJson.user.username}</b></p>`);
+            } else {
+                switch (responseJson.reason) {
+                    case "Invalid username or password":
+                        sweetAlert('error', <p>Login Failed</p>, `<p>Invalid Username or Password</p>`);
+                        break;
+                    default:
+                        sweetAlert('error', <p>Login Failed</p>, `<p>An Unknown Error Occured. Reason Provided By Our Servers:\n\n${JSON.stringify(responseJson.reason)}</p>`);
+                        break;
+                }
+            }
+        }));
     }
 
     /**
      * Process Register request
      */
-    function processRegister() {
+    async function processRegister() {
         const username = document.getElementById("formBasicUsernameRegister").value;
         const email = document.getElementById("formBasicEmailRegister").value;
         const password = document.getElementById("formBasicPasswordRegister").value;
+        const data = {
+            username: username,
+            email: email,
+            password: password,
+        };
+        await fetch('/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            body: JSON.stringify(data)
+        }).then(data => {
+            if (data.success) {
+                localStorage.setItem('yeetnite_user', JSON.stringify(data.user));
+                setUsername(data.user.username);
+            } else {
+                sweetAlert('error', <p>Registration Failed</p>, `<p>An Error Occured While Registering: ${data.reason}</p>`);
+            }
+        });
+    }
+
+    /**
+     * Logout the user
+     */
+    function logout() {
+        localStorage.removeItem('yeetnite_user');
+        setUsername(false);
     }
 
     /**
      * Generate the right side of the navbar
      */
     function RightNavbarContent() {
-        if (userState.username != null) {
-            // TODO: Handle being logged in
+        if (usernameState) {
+            return (
+                <Nav>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                            {usernameState}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+                            <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Nav>
+            );
         } else {
             return (
                 <Nav>
@@ -65,6 +166,7 @@ export default function Header() {
     }
 
     /**
+     * Generate a modal with the given type
      * @param {string} type - Type of the modal (___"register"___ | ___"login"___)
      */
     function GenerateModal({ type }) {
@@ -76,11 +178,11 @@ export default function Header() {
                 <Form onSubmit={() => processRegister()} method="POST">
                     <Form.Group className="mb-3" controlId="formBasicUsernameRegister">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" placeholder="Username" required />
+                        <Form.Control maxLength={18} type="text" name="username" placeholder="Username" required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmailRegister">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="Email" required />
+                        <Form.Control maxLength={255} type="email" name="email" placeholder="Email" required />
                         <Form.Text bsPrefix="muted-text">We&apos;ll never share your email with anyone else.</Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPasswordRegister">
@@ -151,7 +253,7 @@ export default function Header() {
                 <meta name="application-name" content="Yeetnite" />
                 <meta name="msapplication-TileColor" content="#603cba" />
                 <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
-                <meta name="theme-color" content={userState.themeColor} />
+                <meta name="theme-color" content={themeColorState} />
                 <title>Yeetnite</title>
                 <meta name="description" content="Yeetnite is a Fortnite Private Server that implements all the capabilities of Fortnite and even allows for matchmaking, friending, partying up, etc." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -159,22 +261,22 @@ export default function Header() {
             <Navbar collapseOnSelect expand="md" className="signature-navbar">
                 <Navbar.Brand href="/"><Image height={40} width={40} src={brandImg} alt="Yeetnite Brand Icon" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Item>
-                                <Nav.Link bsPrefix="customnav-link" href="/">Home</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link bsPrefix="customnav-link" href="/features">Features</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link bsPrefix="customnav-link" href="/download">Download</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link bsPrefix="customnav-link" href="/setup">Setup</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                        <RightNavbarContent />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Item>
+                            <Nav.Link bsPrefix="customnav-link" href="/">Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link bsPrefix="customnav-link" href="/features">Features</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link bsPrefix="customnav-link" href="/download">Download</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link bsPrefix="customnav-link" href="/setup">Setup</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <RightNavbarContent />
                 </Navbar.Collapse>
             </Navbar>
             <GenerateModal type="register" />

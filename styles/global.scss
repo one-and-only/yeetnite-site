@@ -29,16 +29,6 @@ $theme-colors: (
 .customnav-link:hover {
     color: black;
 }
-.signature-dropdown {
-    border: 5px solid white;
-    color: white;
-    border-radius: 15px;
-}
-.signature-dropdown:hover {
-    border: 5px solid black;
-    color: black;
-    border-radius: 15px;
-}
 .signature-button {
     font-size: 18px;
     border-radius: 5px;
@@ -76,6 +66,18 @@ body {
 }
 .btn-close {
     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}
+.footer {
+    font-family: Burbank;
+    font-size: 25px;
+    text-align: center;
+    background: linear-gradient(310deg, #9326ae, #3696ff);
+    color: white;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 // Setup differences in light mode
 @media (prefers-color-scheme: light) {
