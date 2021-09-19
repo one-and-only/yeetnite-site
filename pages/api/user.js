@@ -1,4 +1,4 @@
-import { executeQuery } from "@db";
+import { executeQuery } from "../../includes/db"; // would have loved if relative paths worked :(
 
 export default function processUserRequest(req, res) {
     if (req.method === "POST") {

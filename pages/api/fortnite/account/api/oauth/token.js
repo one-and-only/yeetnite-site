@@ -1,4 +1,4 @@
-import { executeQuery } from "@db";
+import { executeQuery } from "../../../../../../includes/db"; // would have loved if jsconfig paths worked :(
 import { randomBytes } from "crypto";
 
 export default function token(req, res) {

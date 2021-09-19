@@ -1,7 +1,0 @@
-{
-    "compilerOptions": {
-        "paths": {
-            "@db": ["includes/db.js"]
-        }
-    }
-}
