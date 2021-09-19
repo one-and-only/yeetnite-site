@@ -9,7 +9,6 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cypress open",
-    "test:headless": "npx cypress run --record --key fcfbeb85-0b00-4ba9-905d-bd91a4fbdae8"
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
