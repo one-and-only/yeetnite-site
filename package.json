@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "cypress open",
+    "test": "cypress open"
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
