@@ -28,6 +28,7 @@ export default function Header() {
 
     // localStorage is only usable in CSR
     useEffect(() => {
+        document.documentElement.lang = 'en';
         const yeetnite_user = localStorage.getItem("yeetnite_user");
         (yeetnite_user != null) && setUsername(JSON.parse(yeetnite_user).username);
 
@@ -102,26 +103,25 @@ export default function Header() {
         const username = document.getElementById("formBasicUsernameRegister").value;
         const email = document.getElementById("formBasicEmailRegister").value;
         const password = document.getElementById("formBasicPasswordRegister").value;
-        const data = {
-            username: username,
-            email: email,
-            password: password,
-        };
         await fetch('/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            redirect: 'follow',
-            body: JSON.stringify(data)
-        }).then(data => {
-            if (data.success) {
-                localStorage.setItem('yeetnite_user', JSON.stringify(data.user));
-                setUsername(data.user.username);
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password,
+            })
+        }).then(response => response.json().then(registerData => {
+            if (registerData.success) {
+                localStorage.setItem('yeetnite_user', JSON.stringify(registerData.user));
+                setUsername(registerData.user.username);
+                sweetAlert('success', <p>Registration Succeeded</p>, `<p>You have successfully registered. You are now automatically signed in as <b>${registerData.user.username}</b></p>`);
             } else {
-                sweetAlert('error', <p>Registration Failed</p>, `<p>An Error Occured While Registering: ${data.reason}</p>`);
+                sweetAlert('error', <p>Registration Failed</p>, `<p>An Error Occured While Registering: <b>${registerData.reason}</b></p>`);
             }
-        });
+        }));
     }
 
     /**

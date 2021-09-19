@@ -79,6 +79,15 @@ body {
     bottom: 0;
     width: 100%;
 }
+.dropdown-toggle {
+    font-size: 25px;
+}
+.dropdown-item {
+    font-size: 25px;
+}
+.dropdown-item:active {
+    background-color: #a22fc9;
+}
 // Setup differences in light mode
 @media (prefers-color-scheme: light) {
     body {
