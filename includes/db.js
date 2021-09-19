@@ -1,17 +1,15 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 /**
  * Create a MySQL connection against the Yeetnite database
  */
-function createConnection() {
-  return mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    port: 3308,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-  });
-}
+const db = mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  port: 3308,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+});
 
 /**
  * Execute a MySQL query against the Yeetnite database
@@ -21,8 +19,6 @@ function createConnection() {
  */
 export function executeQuery(query, values=null, cb) {
   let map = new Map();
-  // Initialize the database access
-  const db = createConnection();
 
   /**
   * Set the map values with the data from the SQL query
@@ -46,11 +42,7 @@ export function executeQuery(query, values=null, cb) {
    * Make a connection to the Yeetnite database, given the access interface
    * @param  {mysql.Connection} db - Database access interface
    */
-  function connectDB(db) {
-    db.connect(function(err) {
-      queryDB(err, db);
-    });
-  }
-  
-  connectDB(db);
+  db.connect(function(err) {
+    queryDB(err, db);
+  });
 }

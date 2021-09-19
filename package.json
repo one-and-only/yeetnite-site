@@ -8,12 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "cypress open",
-    "test:headless": "npx cypress run --record --key fcfbeb85-0b00-4ba9-905d-bd91a4fbdae8"
+    "test": "cypress open"
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.0",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",
