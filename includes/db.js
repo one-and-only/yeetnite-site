@@ -34,6 +34,7 @@ export function executeQuery(query, values=null, cb) {
   function setMap(err_cb, fields_cb) {
     map.set("error", err_cb); map.set("fields", fields_cb);
     cb(map);
+    return map;
   }
 
   function queryDB(err, db) {

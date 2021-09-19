@@ -1,6 +1,6 @@
-import { executeQuery } from "../../includes/db";
+import { executeQuery } from "@db";
 
-export default async function processUserRequest(req, res) {
+export default function processUserRequest(req, res) {
     if (req.method === "POST") {
         // sanity check
         if (!req.body.username || !req.body.email || !req.body.password) {
