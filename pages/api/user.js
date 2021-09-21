@@ -9,13 +9,12 @@ export default async function processUserRequest(req, res) {
         } else {
             const duplicateUsers = executeQuery("SELECT * FROM users WHERE username = ? OR email = ?", [req.body.username, req.body.email]);
             duplicateUsers.then(duplicates => {
-                const duplicatesObj = JSON.parse(duplicates);
-                if (duplicatesObj.length > 0) {
+                if (duplicates.length > 0) {
                     res.json({ success: false, reason: "Username or Email already exists" });
                 } else {
                     executeQuery("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password]).then(() => {
                         executeQuery("SELECT * FROM users WHERE username = ?", [req.body.username]).then(user => {
-                            res.json({ success: true, user: JSON.parse(user)[0] });
+                            res.json({ success: true, user: user[0] });
                         }).catch(err => {
                             res.json({ success: false, reason: err });
                         });
@@ -30,7 +29,7 @@ export default async function processUserRequest(req, res) {
             return;
         } else {
             executeQuery("SELECT * FROM `users` WHERE username = ?", [req.query.username]).then(loginResponse => {
-                const loginJson = JSON.parse(loginResponse);
+                const loginJson = loginResponse;
                 if (loginJson[0].password === req.query.password) {
                     res.json({ success: true, user: loginJson[0] });
                 } else {

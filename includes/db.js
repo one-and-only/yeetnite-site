@@ -3,7 +3,7 @@ import { createConnection} from 'mysql2/promise';
 /**
  * Execute a MySQL query against the Yeetnite database
  * @param {string} query - SQL query string
- * @param {Array<string> | null} values - SQL prepared statement values
+ * @param {Array<any> | null} values - SQL prepared statement values
  */
 export async function executeQuery(query, values=null) {
   // initialize a connection
@@ -19,7 +19,7 @@ export async function executeQuery(query, values=null) {
   return new Promise((resolve, reject) => {
     if (values != null) {
       db.execute(query, values).then(result => {
-        resolve(JSON.stringify(result[0]));
+        resolve(result[0]);
       }).catch(err => {
         reject(err);
       });
