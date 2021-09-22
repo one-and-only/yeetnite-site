@@ -1,4 +1,21 @@
 module.exports = {
+  async redirects() {
+      return [
+        // External Auths for user (Ex: PSN, Steam, etc)
+        // currently Yeetnite Services doesn't support external auths
+        {
+            source: '/api/fortnite/account/api/public/account/:accountId/externalAuths',
+            destination: '/api/fortnite/account/api/public/externalAuths?accountId=:accountId',
+            permanent: true,
+        },
+        // Full acount info
+        {
+            source: '/api/fortnite/account/api/public/account/:accountId',
+            destination: '/api/fortnite/account/api/public/account?fullAccountInfo=true&accountId=:accountId',
+            permanent: true,
+        }
+      ];
+  },
   reactStrictMode: true,
   poweredByHeader: false,
   webpack: (config, { isServer }) => {
