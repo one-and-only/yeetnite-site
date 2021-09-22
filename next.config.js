@@ -1,6 +1,12 @@
 module.exports = {
     async redirects() {
         return [
+            // Get or Set ClientSettings.Sav (but saved in the database)
+            {
+                source: '/api/fortnite/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
+                destination: '/api/fortnite/fortnite/api/cloudstorage/user/clientSettings?accountId=:accountId',
+                permanent: true,
+            },
             // User's Block List
             {
                 source: '/api/fortnite/friends/api/public/blocklist/:accountId',
