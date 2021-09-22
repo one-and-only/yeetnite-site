@@ -68,7 +68,7 @@ export default function Header() {
                 cancelButton: 'btn btn-info',
             },
             buttonsStyling: false,
-            timer: 5000,
+            timer: (type === "success") ? 5000 : undefined,
         });
     }
 
