@@ -1,10 +1,16 @@
 module.exports = {
     async redirects() {
         return [
+            // QueryProfile
+            {
+                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/queryProfile?accountId=:accountId',
+                permanent: true,
+            },
             // ClientQuestLogin
             {
                 source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
-                destination: '/api/fortnite/fortnite/api/game/v2/profile/ClientQuestLogin?accountId=:accountId',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/clientQuestLogin?accountId=:accountId',
                 permanent: true,
             },
             // Get or Set ClientSettings.Sav (but saved in the database)
