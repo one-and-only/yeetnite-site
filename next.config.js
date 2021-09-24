@@ -1,6 +1,18 @@
 module.exports = {
     async redirects() {
         return [
+            // get a user's receipt
+            {
+                source: '/api/fortnite/fortnite/api/receipts/v1/account/:accountId/receipts',
+                destination: '/api/fortnite/fortnite/api/receipts/v1/account/receipts?accountId=:accountId',
+                permanent: true,
+            },
+            // tryPlayOnPlatform
+            {
+                source: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform/account/:slug*',
+                destination: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform',
+                permanent: true,
+            },
             // setMtxPlatform
             {
                 source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
