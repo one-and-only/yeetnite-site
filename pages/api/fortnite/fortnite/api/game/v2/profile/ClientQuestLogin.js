@@ -22,7 +22,7 @@ export default function clientQuestLogin(req, res) {
             default:
                 res.json({
                     success: false,
-                    reason: "invalid profileId provided"
+                    reason: `invalid \`profileId\` of \`${req.query.profileId}\``
                 });
                 break;
         }
