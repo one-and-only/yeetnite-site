@@ -1,6 +1,12 @@
 module.exports = {
     async redirects() {
         return [
+            // setMtxPlatform
+            {
+                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/setMtxPlatform?accountId=:accountId',
+                permanent: true,
+            },
             // QueryProfile
             {
                 source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
