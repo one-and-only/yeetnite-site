@@ -10,11 +10,11 @@ export const config = {
 
 export default function clientSettings(req, res) {
     if (req.query.accountId) {
-        switch (req.method){
+        switch (req.method) {
             case 'GET':
                 res.json({
                     success: false,
-                    reason: 'GET not supported yet', 
+                    reason: 'GET not supported yet',
                 });
                 break;
             case 'PUT':
@@ -24,7 +24,7 @@ export default function clientSettings(req, res) {
                         req.on('data', (chunk) => {
                             buffer += chunk;
                         })
-        
+
                         req.on('end', () => {
                             executeQuery('UPDATE users SET clientSettings = ? WHERE username = ?', [Buffer.from(buffer).toString(), req.query.accountId]);
                             res.status(204).send();
@@ -37,6 +37,7 @@ export default function clientSettings(req, res) {
                     success: false,
                     reason: 'Method `' + req.method + '` not supported',
                 });
+                break;
         }
     } else {
         res.status(400).json({
