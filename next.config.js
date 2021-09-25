@@ -1,6 +1,12 @@
 module.exports = {
     async redirects() {
         return [
+            // Version Check
+            {
+                source: '/api/fortnite/fortnite/api/v2/versioncheck/Windows:slug*',
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck:slug*',
+                permanent: true,
+            },
             // get a user's receipt
             {
                 source: '/api/fortnite/fortnite/api/receipts/v1/account/:accountId/receipts',
