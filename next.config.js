@@ -39,50 +39,50 @@ module.exports = {
             },
             // setMtxPlatform
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
+                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/setMtxPlatform?accountId=:accountId',
                 permanent: true,
             },
             // QueryProfile
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
+                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/queryProfile?accountId=:accountId',
                 permanent: true,
             },
             // ClientQuestLogin
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
+                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/clientQuestLogin?accountId=:accountId',
                 permanent: true,
             },
             // Get or Set ClientSettings.Sav (but saved in the database)
             {
-                source: '/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
+                source: '/api/fortnite/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/user/clientSettings?accountId=:accountId',
                 permanent: true,
             },
             // Cloudstorage for Fortnite user
             {
-                source: '/fortnite/api/cloudstorage/user/:accountId',
+                source: '/api/fortnite/fortnite/api/cloudstorage/user/:accountId',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/user?accountId=:accountId',
                 permanent: true,
             },
             // User's Block List
             {
-                source: '/friends/api/public/blocklist/:accountId',
+                source: '/api/fortnite/friends/api/public/blocklist/:accountId',
                 destination: '/api/fortnite/friends/api/public/blocklist?accountId=:accountId',
                 permanent: true,
             },
             // External Auths for user (Ex: PSN, Steam, etc)
             // currently Yeetnite Services doesn't support external auths
             {
-                source: '/account/api/public/account/:accountId/externalAuths',
+                source: '/api/fortnite/account/api/public/account/:accountId/externalAuths',
                 destination: '/api/fortnite/account/api/public/externalAuths?accountId=:accountId',
                 permanent: true,
             },
             // Full acount info
             {
-                source: '/account/api/public/account/:accountId',
+                source: '/api/fortnite/account/api/public/account/:accountId',
                 destination: '/api/fortnite/account/api/public/account?fullAccountInfo=true&accountId=:accountId',
                 permanent: true,
             }
