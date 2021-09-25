@@ -1,6 +1,18 @@
 module.exports = {
     async redirects() {
         return [
+            // User Settings (probably NOT ClientSettings.Sav???)
+            {
+                source: '/api/fortnite/friends/api/v1/:accountId/settings',
+                destination: '/api/fortnite/friends/api/v1/settings?accountId=:accountId',
+                permanent: true,
+            },
+            // Recent Players
+            {
+                source: '/api/fortnite/friends/api/public/list/fortnite/:accountId/recentPlayers',
+                destination: '/api/fortnite/friends/api/public/list/fortnite/recentPlayers?accountId=:accountId',
+                permanent: true,
+            },
             // Version Check
             {
                 source: '/api/fortnite/fortnite/api/v2/versioncheck/Windows:slug*',
