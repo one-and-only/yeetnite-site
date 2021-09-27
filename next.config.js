@@ -1,6 +1,12 @@
 module.exports = {
     async redirects() {
         return [
+            // Cloudstorage (System)
+            {
+                source: '/api/fortnite/fortnite/api/cloudstorage/system/:storageHash',
+                destination: '/api/fortnite/fortnite/api/cloudstorage/system?storageHash=:storageHash',
+                permanent: true,
+            },
             // Friends
             {
                 source: '/api/fortnite/friends/api/public/friends/:accountId',
