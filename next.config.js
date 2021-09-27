@@ -3,37 +3,37 @@ module.exports = {
         return [
             // Friends
             {
-                source: '/friends/api/public/friends/:accountId',
+                source: '/api/fortnite/friends/api/public/friends/:accountId',
                 destination: '/api/fortnite/friends/api/public/friends?accountId=:accountId',
                 permanent: true,
             },
             // User Settings (probably NOT ClientSettings.Sav???)
             {
-                source: '/friends/api/v1/:accountId/settings',
+                source: '/api/fortnite/friends/api/v1/:accountId/settings',
                 destination: '/api/fortnite/friends/api/v1/settings?accountId=:accountId',
                 permanent: true,
             },
             // Recent Players
             {
-                source: '/friends/api/public/list/fortnite/:accountId/recentPlayers',
+                source: '/api/fortnite/friends/api/public/list/fortnite/:accountId/recentPlayers',
                 destination: '/api/fortnite/friends/api/public/list/fortnite/recentPlayers?accountId=:accountId',
                 permanent: true,
             },
             // Version Check
             {
-                source: '/fortnite/api/v2/versioncheck/Windows:slug*',
-                destination: '/api/fortnite/fortnite/api/v2/versionCheck:slug*',
+                source: '/api/fortnite/fortnite/api/v2/versioncheck/:OSVersion',
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck?OSVersion=:OSVersion',
                 permanent: true,
             },
             // get a user's receipt
             {
-                source: '/fortnite/api/receipts/v1/account/:accountId/receipts',
+                source: '/api/fortnite/fortnite/api/receipts/v1/account/:accountId/receipts',
                 destination: '/api/fortnite/fortnite/api/receipts/v1/account/receipts?accountId=:accountId',
                 permanent: true,
             },
             // tryPlayOnPlatform
             {
-                source: '/fortnite/api/game/v2/tryPlayOnPlatform/account/:slug*',
+                source: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform/account/:slug*',
                 destination: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform',
                 permanent: true,
             },
