@@ -1,94 +1,186 @@
+// TODO simplify redirects
+    // i. no need to look for query params in the `source` if they’re already being passed in automatically
+    // ii. make it as short as possible, while maintaining code readability
+// TODO Standardize error handling
+    // i. use `status(400).json(...error);` for bad requests/invalid data
+// TODO move large API responses to JSON files that get dynamically included
+    // i. this makes code easier to read
+
 module.exports = {
     async redirects() {
         return [
+            // Offers (Paid, such as VBucks)
+            {
+                source: '/catalog/api/shared/bulk/offers',
+                destination: '/api/fortnite/catalog/api/shared/bulk/offers',
+                permanent: true,
+            },
+            // Public Account Info
+            {
+                source: '/account/api/public/account',
+                destination: '/api/fortnite/account/api/public/account',
+                permanent: true,
+            },
+            // Catalog (Item Shop List)
+            {
+                source: '/fortnite/api/storefront/v2/catalog',
+                destination: '/api/fortnite/fortnite/api/storefront/v2/catalog',
+                permanent: true,
+            },
+            // "fortnite-game" Pages
+            {
+                source: '/content/api/pages/fortnite-game',
+                destination: '/api/fortnite/content/api/pages/fortnite-game',
+                permanent: true,
+            },
+            // Timeline
+            {
+                source: '/fortnite/api/calendar/v1/timeline',
+                destination: '/api/fortnite/fortnite/api/calendar/v1/timeline',
+                permanent: true,
+            },
+            // Keychain
+            {
+                source: '/fortnite/api/storefront/v2/keychain',
+                destination: '/api/fortnite/fortnite/api/storefront/v2/keychain/',
+                permanent: true,
+            },
+            // Enabled Features
+            {
+                source: '/fortnite/api/game/v2/enabled_features',
+                destination: '/api/fortnite/fortnite/api/game/v2/enabled_features',
+                permanent: true,
+            },
+            // Service Status
+            {
+                source: '/lightswitch/api/service/bulk/status',
+                destination: '/api/fortnite/lightswitch/api/service/bulk/status',
+                permanent: true,
+            },
+            // Datarouter
+            {
+                source: '/datarouter/api/v1/public/data',
+                destination: '/api/fortnite/datarouter/api/v1/public/data',
+                permanent: true,
+            },
+            // Waiting Room
+            {
+                source: '/waitingroom/api/waitingroom',
+                destination: '/api/fortnite/waitingroom/api/waitingroom',
+                permanent: true,
+            },
+            // OAuth Token
+            {
+                source: '/account/api/oauth/token',
+                destination: '/api/fortnite/account/api/oauth/token',
+                permanent: true,
+            },
+            // Possibly used for logout???
+            {
+                source: '/account/api/oauth/sessions/kill/:token',
+                destination: '/api/fortnite/account/api/oauth/sessions/kill?killType=logout&token=:token',
+                permanent: true,
+            },
+            // Kill OTHER TYPE oauth session
+            {
+                source: '/account/api/oauth/sessions/kill',
+                destination: '/api/fortnite/account/api/oauth/sessions/kill',
+                permanent: true,
+            },
             // Cloudstorage (System)
             {
-                source: '/api/fortnite/fortnite/api/cloudstorage/system/:storageHash',
+                source: '/fortnite/api/cloudstorage/system/:storageHash',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/system?storageHash=:storageHash',
+                permanent: true,
+            },
+            // Cloudstorage (System) without a "Storage Hash"
+            {
+                source: '/fortnite/api/cloudstorage/system',
+                destination: '/api/fortnite/fortnite/api/cloudstorage/system',
                 permanent: true,
             },
             // Friends
             {
-                source: '/api/fortnite/friends/api/public/friends/:accountId',
+                source: '/friends/api/public/friends/:accountId',
                 destination: '/api/fortnite/friends/api/public/friends?accountId=:accountId',
                 permanent: true,
             },
             // User Settings (probably NOT ClientSettings.Sav???)
             {
-                source: '/api/fortnite/friends/api/v1/:accountId/settings',
+                source: '/friends/api/v1/:accountId/settings',
                 destination: '/api/fortnite/friends/api/v1/settings?accountId=:accountId',
                 permanent: true,
             },
             // Recent Players
             {
-                source: '/api/fortnite/friends/api/public/list/fortnite/:accountId/recentPlayers',
+                source: '/friends/api/public/list/fortnite/:accountId/recentPlayers',
                 destination: '/api/fortnite/friends/api/public/list/fortnite/recentPlayers?accountId=:accountId',
                 permanent: true,
             },
             // Version Check
             {
-                source: '/api/fortnite/fortnite/api/v2/versioncheck/:OSVersion',
+                source: '/fortnite/api/v2/versioncheck/:OSVersion',
                 destination: '/api/fortnite/fortnite/api/v2/versionCheck?OSVersion=:OSVersion',
                 permanent: true,
             },
             // get a user's receipt
             {
-                source: '/api/fortnite/fortnite/api/receipts/v1/account/:accountId/receipts',
+                source: '/fortnite/api/receipts/v1/account/:accountId/receipts',
                 destination: '/api/fortnite/fortnite/api/receipts/v1/account/receipts?accountId=:accountId',
                 permanent: true,
             },
             // tryPlayOnPlatform
             {
-                source: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform/account/:slug*',
+                source: '/fortnite/api/game/v2/tryPlayOnPlatform/account/:slug*',
                 destination: '/api/fortnite/fortnite/api/game/v2/tryPlayOnPlatform',
                 permanent: true,
             },
             // setMtxPlatform
             {
-                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/setMtxPlatform?accountId=:accountId',
                 permanent: true,
             },
             // QueryProfile
             {
-                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/queryProfile?accountId=:accountId',
                 permanent: true,
             },
             // ClientQuestLogin
             {
-                source: '/api/fortnite/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/clientQuestLogin?accountId=:accountId',
                 permanent: true,
             },
             // Get or Set ClientSettings.Sav (but saved in the database)
             {
-                source: '/api/fortnite/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
+                source: '/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/user/clientSettings?accountId=:accountId',
                 permanent: true,
             },
             // Cloudstorage for Fortnite user
             {
-                source: '/api/fortnite/fortnite/api/cloudstorage/user/:accountId',
+                source: '/fortnite/api/cloudstorage/user/:accountId',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/user?accountId=:accountId',
                 permanent: true,
             },
             // User's Block List
             {
-                source: '/api/fortnite/friends/api/public/blocklist/:accountId',
+                source: '/friends/api/public/blocklist/:accountId',
                 destination: '/api/fortnite/friends/api/public/blocklist?accountId=:accountId',
                 permanent: true,
             },
             // External Auths for user (Ex: PSN, Steam, etc)
             // currently Yeetnite Services doesn't support external auths
             {
-                source: '/api/fortnite/account/api/public/account/:accountId/externalAuths',
+                source: '/account/api/public/account/:accountId/externalAuths',
                 destination: '/api/fortnite/account/api/public/externalAuths?accountId=:accountId',
                 permanent: true,
             },
             // Full acount info
             {
-                source: '/api/fortnite/account/api/public/account/:accountId',
+                source: '/account/api/public/account/:accountId',
                 destination: '/api/fortnite/account/api/public/account?fullAccountInfo=true&accountId=:accountId',
                 permanent: true,
             }

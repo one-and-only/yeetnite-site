@@ -92,6 +92,7 @@ export default function timeline(req, res) {
             },
             "eventsTimeOffsetHrs": 0,
             "cacheIntervalMins": 10,
+            // TODO change "currentTime" to current server time instead of hardcoded value
             "currentTime": "2021-01-03T16:22:20.000Z"
         }
     );
