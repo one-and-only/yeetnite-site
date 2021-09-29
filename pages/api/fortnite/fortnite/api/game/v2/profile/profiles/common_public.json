@@ -1,0 +1,18 @@
+{
+    "created": "",
+    "updated": "",
+    "rvn": 4,
+    "wipeNumber": 1,
+    "accountId": "",
+    "profileId": "common_public",
+    "version": "no_version",
+    "items": {},
+    "stats": {
+        "attributes": {
+            "banner_color": "DefaultColor8",
+            "homebase_name": "",
+            "banner_icon": "BRSeason02Salt"
+        }
+    },
+    "commandRevision": 2
+}
