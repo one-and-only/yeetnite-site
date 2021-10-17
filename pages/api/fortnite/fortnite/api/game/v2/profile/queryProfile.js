@@ -32,8 +32,6 @@ export default async function queryProfile(req, res) {
                 common_public.profileChanges[0].profile.created = userDataCommonPublic[0].created;
                 common_public.profileChanges[0].profile.updated = userDataCommonPublic[0].lastLogin;
                 common_public.profileChanges[0].profile.accountId = req.query.accountId;
-                common_public.profileChanges[0].profile.profileId = req.query.accountId;
-                common_public.profileId = req.query.accountId;
                 common_public.profileChanges[0].profile.stats.attributes.homebase_name = req.query.accountId;
                 common_public.serverTime = serverTime;
                 res.json(common_public);
