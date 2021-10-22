@@ -124,7 +124,7 @@ module.exports = {
             },
             // ClientQuestLogin
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/clientQuestLogin?accountId=:accountId',
             },
             // Get or Set ClientSettings.Sav (but saved in the database)
