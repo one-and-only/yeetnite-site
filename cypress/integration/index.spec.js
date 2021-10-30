@@ -1,5 +1,5 @@
 describe('Index Page', () => {
-    it('should navigate to each page from the index page', () => {
+    it('Navigate to each page from the index page', () => {
         // test navigation to all pages
 
         // visit features page

@@ -1,0 +1,4 @@
+~!W       ME    ++Fortnite+Release-6.21       MouseSensitivity    FloatProperty                MouseSensitivityY    FloatProperty         9 H=   UserBindingsPerSubGame    MapProperty         
+   EnumProperty    StructProperty            ESubGame::Athena    UserActionBindings    ArrayProperty `          StructProperty         UserActionBindings    StructProperty            FortActionKeyMapping                     None    bInitialAutoOpenDoors 
+   BoolProperty              LastKnownBestRegionId    StrProperty            NAE    bHasSeenDeimosTrailer 
+   BoolProperty             None     
