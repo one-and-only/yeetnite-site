@@ -57,7 +57,7 @@ describe('Test REST API', () => {
         });
     });
     it('ClientSettings.Sav Upload', () => {
-        cy.readFile('cypress/integration/ClientSettings.Sav.sample').then(rawClientSettings_Sav => {
+        cy.readFile('includes/ClientSettings.Sav.example').then(rawClientSettings_Sav => {
             cy.request({
                 method: 'PUT',
                 url: '/fortnite/api/cloudstorage/user/testUser/ClientSettings.Sav',
