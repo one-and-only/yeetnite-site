@@ -1,5 +1,5 @@
 {
-    "profileRevision": 2718,
+    "profileRevision": 6895,
     "profileId": "athena",
     "profileChangesBaseRevision": 2718,
     "profileChanges": [
@@ -42213,9 +42213,9 @@
                             "dailyQuestRerolls": 1
                         },
                         "book_level": 1000,
-                        "season_num": 2,
+                        "season_num": 6,
                         "favorite_consumableemote": "",
-                        "banner_color": "DefaultColor1",
+                        "banner_color": "DefaultColor8",
                         "favorite_callingcard": "",
                         "favorite_character": "AthenaCharacter:CID_028_Athena_Commando_F",
                         "favorite_spray": [],
@@ -42248,7 +42248,7 @@
                         "season_friend_match_boost": 999999999,
                         "active_loadout_index": 0,
                         "favorite_musicpack": "",
-                        "banner_icon": "BRSeason01",
+                        "banner_icon": "BRSeason02Salt",
                         "favorite_itemwraps": [
                             "",
                             "",
@@ -42264,7 +42264,7 @@
             }
         }
     ],
-    "profileCommandRevision": 2717,
+    "profileCommandRevision": 2625,
     "serverTime": "",
     "responseVersion": 1
 }
