@@ -64,7 +64,7 @@ describe('Test REST API', () => {
                 body: rawClientSettings_Sav,
             }).then(response => {
                 expect(response.status).to.equal(204);
-            }); 
+            });
         });
     });
     it('ClientQuestLogin', () => {
@@ -187,7 +187,7 @@ describe('Test REST API', () => {
     it('Friends List', () => {
         cy.request('/friends/api/public/friends/testUser?includePending=true').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.not.be.empty;  
+            expect(response.body).to.not.be.empty;
         });
     });
     it('Server Status', () => {
@@ -230,9 +230,13 @@ describe('Test REST API', () => {
     it('Public Account Variation 1', () => {
         cy.request('/account/api/public/account?accountId=testUser').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body[0].id).to.equal('testUser');
-            expect(response.body[0].displayName).to.equal('testUser');
-            expect(response.body[0].externalAuths).to.deep.equal({});
+            expect(response.body).to.deep.equal([{"id":"testUser","displayName":"testUser","externalAuths":{}}]);
+        });
+    });
+    it('Public Account Variation 1 - Multiple Users', () => {
+        cy.request('/account/api/public/account?accountId=Revvz&accountId=Fischsalat').then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.deep.equal([{"id":"Revvz","displayName":"Revvz","externalAuths":{}},{"id":"Fischsalat","displayName":"Fischsalat","externalAuths":{}}]);
         });
     });
     it('Public Acount Variation 2', () => {
