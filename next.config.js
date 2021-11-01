@@ -152,6 +152,21 @@ module.exports = {
             {
                 source: '/account/api/public/account/:accountId',
                 destination: '/api/fortnite/account/api/public/account?fullAccountInfo=true&accountId=:accountId',
+            },
+            // Display Name
+            {
+                source: '/account/api/public/account/displayName/:accountId',
+                destination: '/api/fortnite/account/api/public/account?fullAccountInfo=true&accountId=:accountId',
+            },
+            // Friends (Add/Accept/Remove Friends)
+            {
+                source: '/friends/api/public/friends/:accountId1/:accountId2',
+                destination: '/api/fortnite/account/api/public/friends?accountId1=:accountId1&accountId2=:accountId2',
+            },
+            // Block User
+            {
+                source: '/friends/api/public/blocklist/:accountId/:blocking',
+                destination: '/api/fortnite/friends/api/public/blocklist?accountId=:accountId&blocking=:blocking'
             }
         ];
     },

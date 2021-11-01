@@ -35,6 +35,7 @@ export default async function token(req, res) {
                             "client_id": "yeetniteclientlol",
                             "internal_client": true,
                             "client_service": "fortnite",
+                            "device_id": "yeetnitedeviceidlol",
                             "app": "fortnite",
                             "in_app_id": req.body.username
                         });
