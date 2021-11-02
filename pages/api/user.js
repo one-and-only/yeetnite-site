@@ -8,16 +8,16 @@ export default function processUserRequest(req, res) {
             return;
         } else {
             const duplicateUsers = executeQuery("SELECT * FROM users WHERE username = ? OR email = ?", [req.body.username, req.body.email]);
-            duplicateUsers.then(duplicates => {
+            duplicateUsers.then(async duplicates => {
                 if (duplicates.length > 0) {
                     res.json({ success: false, reason: "Username or Email already exists" });
                 } else {
-                    executeQuery("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password]).then(() => {
-                        executeQuery("SELECT * FROM users WHERE username = ?", [req.body.username]).then(user => {
-                            res.json({ success: true, user: user[0] });
-                        }).catch(err => {
-                            res.json({ success: false, reason: err });
-                        });
+                    await executeQuery("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password]);
+                    executeQuery("SELECT username, email, user_id FROM users WHERE username = ?", [req.body.username]).then(async user => {
+                        await executeQuery('INSERT INTO locker (user_id) VALUES (?)', [user[0].user_id]);
+                        res.json({ success: true, user: user[0] });
+                    }).catch(err => {
+                        res.json({ success: false, reason: err });
                     });
                 }
             });

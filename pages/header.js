@@ -16,6 +16,7 @@ import brandImg from '../public/favicons/android-chrome-192x192.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const ReactSwal = withReactContent(Swal);
+
 /**
  * Default component for the Header
  */
@@ -113,7 +114,7 @@ export default function Header() {
                 email: email,
                 password: password,
             })
-        }).then(response => response.json().then(registerData => {
+        }).then(response => response.json().then(async registerData => {
             if (registerData.success) {
                 localStorage.setItem('yeetnite_user', JSON.stringify(registerData.user));
                 setUsername(registerData.user.username);
