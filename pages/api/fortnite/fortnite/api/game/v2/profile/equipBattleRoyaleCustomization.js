@@ -13,7 +13,7 @@ export default async function equipBattleRoyaleCustomization(req, res) {
         } else {
             profileChanges = req.body.itemToSlot;
         }
-        await executeQuery(`UPDATE locker SET favorite_${req.body.slotName.toLowerCase()} = ? WHERE user_id IN (SELECT user_id FROM users WHERE username = ?);`, [profileChanges, req.query.accountId]);
+        await executeQuery(`UPDATE locker SET favorite_${req.body.slotName.toLowerCase()} = ? WHERE user_id IN (SELECT user_id FROM users WHERE username = ?)`, [profileChanges, req.query.accountId]);
         res.json({
             "profileRevision": profileRevision + 1,
             "profileId": "athena",
