@@ -16,6 +16,7 @@ import brandImg from '../public/favicons/android-chrome-192x192.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const ReactSwal = withReactContent(Swal);
+
 /**
  * Default component for the Header
  */

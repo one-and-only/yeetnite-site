@@ -167,6 +167,21 @@ module.exports = {
             {
                 source: '/friends/api/public/blocklist/:accountId/:blocking',
                 destination: '/api/fortnite/friends/api/public/blocklist?accountId=:accountId&blocking=:blocking'
+            },
+            // OAuth Verify
+            {
+                source: '/account/api/oauth/verify',
+                destination: '/api/fortnite/account/api/oauth/verify',
+            },
+            // Equip Battle Royale Customization
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/EquipBattleRoyaleCustomization',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/equipBattleRoyaleCustomization?accountId=:accountId',
+            },
+            // Change Banner Icon and Color
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/SetBattleRoyaleBanner',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/setBattleRoyaleBanner?accountId=:accountId',
             }
         ];
     },
