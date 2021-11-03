@@ -4,7 +4,7 @@ export default async function queryProfile(req, res) {
     if (req.query.accountId && req.query.profileId) {
         const serverTime = new Date().toISOString();
         switch (req.query.profileId) {
-            // TODO make personalization options and 'created' and 'updated' time dynamic (Needs some database work?)
+            // TODO make personalization options dynamic (Needs some database work)
             case 'athena':
                 let athena = require('./profiles/athena.json');
                 const userDataAthena = (await executeQuery('SELECT created, lastLogin FROM users WHERE username = ?', [req.query.accountId]))[0];

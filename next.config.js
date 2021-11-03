@@ -172,6 +172,11 @@ module.exports = {
             {
                 source: '/account/api/oauth/verify',
                 destination: '/api/fortnite/account/api/oauth/verify',
+            },
+            // Equip Battle Royale Customization
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/EquipBattleRoyaleCustomization',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/equipBattleRoyaleCustomization?accountId=:accountId',
             }
         ];
     },
