@@ -28,10 +28,10 @@ export default function processUserRequest(req, res) {
             res.json({ success: false, reason: "We have received invalid data and are unable to receive your request" });
             return;
         } else {
-            executeQuery("SELECT username, email FROM `users` WHERE username = ?", [req.query.username]).then(loginResponse => {
+            executeQuery("SELECT username, email, password FROM `users` WHERE username = ?", [req.query.username]).then(loginResponse => {
                 const loginJson = loginResponse;
                 if (loginJson[0].password === req.query.password) {
-                    res.json({ success: true, user: loginJson[0] });
+                    res.json({ success: true, user: { username: loginJson[0].username } });
                 } else {
                     res.json({ success: false, reason: "Invalid username or password" });
                 }
