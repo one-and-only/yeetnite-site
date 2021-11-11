@@ -114,7 +114,7 @@ export default function Header() {
                 email: email,
                 password: password,
             })
-        }).then(response => response.json().then(async registerData => {
+        }).then(response => response.json().then(registerData => {
             if (registerData.success) {
                 localStorage.setItem('yeetnite_user', JSON.stringify(registerData.user));
                 setUsername(registerData.user.username);
