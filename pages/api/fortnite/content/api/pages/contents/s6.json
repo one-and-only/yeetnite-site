@@ -536,13 +536,13 @@
                     "_type": "FortPlaylistInfo"
                 },
                 {
-                    "image": "https://yeetnite.ml/images/favicon.png",
+                    "image": "https://yeetnite.ml/images/yeetnite.png",
                     "playlist_name": "Playlist_PlaygroundV2",
                     "_type": "FortPlaylistInfo",
                     "description": "sicko mode"
                 },
                 {
-                    "image": "https://yeetnite.ml/images/favicon.png",
+                    "image": "https://yeetnite.ml/images/yeetnite.png",
                     "playlist_name": "Playlist_Playground",
                     "_type": "FortPlaylistInfo",
                     "description": "sicko mode"
@@ -1041,7 +1041,7 @@
                     "_type": "FortPlaylistInfo"
                 },
                 {
-                    "image": "https://yeetnite.ml/images/yeetnite.png",
+                    "image": "https://yeetnite.ml/images/favicon.png",
                     "playlist_name": "Playlist_50v50",
                     "_type": "FortPlaylistInfo"
                 },
@@ -1088,7 +1088,7 @@
                     "background_right_color": "00ccff",
                     "poster_back_image": "https://yeetnite.ml/images/yeetnite.png",
                     "_type": "Tournament Display Info",
-                    "pin_earned_text": "GreekPita is the winner!",
+                    "pin_earned_text": "Revvz is the winner!",
                     "tournament_display_id": "s11_switchcup",
                     "highlight_color": "3597ff",
                     "schedule_info": "November 2nd & 3rd: 2pm - 5pm JST",
@@ -1125,7 +1125,7 @@
                     "_type": "CommonUI Simple Message Base",
                     "subgame": "br",
                     "title": "Yeetnite",
-                    "body": "Your go-to server for OG Fortnite with matchmaking! \n\nServer created by GreekPita and Fischsalat \n\n(Discord: @Revvz, @Fischsalat)",
+                    "body": "Your go-to server for OG Fortnite with matchmaking! \n\nServer created by Revvz and Fischsalat \n\n(Discord: @Revvz, @Fischsalat)",
                     "spotlight": true
                 }
             ],
@@ -1138,7 +1138,7 @@
                         "_type": "CommonUI Simple Message Base",
                         "subgame": "br",
                         "title": "Yeetnite",
-                        "body": "Your go-to server for OG Fortnite with matchmaking! \n\nServer created by GreekPita and Fischsalat \n\n(Discord: @Revvz, @Fischsalat)",
+                        "body": "Your go-to server for OG Fortnite with matchmaking! \n\nServer created by Revvz and Fischsalat \n\n(Discord: @Revvz, @Fischsalat)",
                         "spotlight": true
                     }
                 }
