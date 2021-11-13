@@ -1,8 +1,7 @@
-// TODO simplify redirects
-    // i. no need to look for query params in the `source` if they’re already being passed in automatically
-    // ii. make it as short as possible, while maintaining code readability
 // TODO Standardize error handling
     // i. use `status(400).json(...error);` for bad requests/invalid data
+
+const { getRedirectStatus } = require("next/dist/lib/load-custom-routes");
 
 module.exports = {
     async rewrites() {
@@ -97,10 +96,15 @@ module.exports = {
                 source: '/friends/api/public/list/fortnite/:accountId/recentPlayers',
                 destination: '/api/fortnite/friends/api/public/list/fortnite/recentPlayers?accountId=:accountId',
             },
-            // Version Check
+            // Version Check (New)
             {
-                source: '/fortnite/api/v2/versioncheck/:OSVersion',
-                destination: '/api/fortnite/fortnite/api/v2/versionCheck?OSVersion=:OSVersion',
+                source: '/fortnite/api/v2/versioncheck/:version',
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck?version=:OSVersion',
+            },
+            // Version Check (Old)
+            {
+                source: '/fortnite/api/versioncheck',
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck?version=:OSVersion'
             },
             // get a user's receipt
             {
@@ -114,12 +118,12 @@ module.exports = {
             },
             // setMtxPlatform
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/SetMtxPlatform',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/setMtxPlatform?accountId=:accountId',
             },
             // QueryProfile
             {
-                source: '/fortnite/api/game/v2/profile/:accountId/client/QueryProfile:params*',
+                source: '/fortnite/api/game/v2/profile/:accountId/client/QueryProfile',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/queryProfile?accountId=:accountId',
             },
             // ClientQuestLogin
@@ -182,6 +186,36 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/profile/:accountId/client/SetBattleRoyaleBanner',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/setBattleRoyaleBanner?accountId=:accountId',
+            },
+            // Single Sign On Domains (SSO)
+            {
+                source: '/account/api/epicdomains/ssodomains',
+                destination: '/api/fortnite/account/api/epicdomains/ssodomains',
+            },
+            // UELA Agreement
+            {
+                source: '/eulatracking/api/shared/agreements/fn',
+                destination: '/api/fortnite/eulatracking/api/shared/agreements/fn',
+            },
+            // World Info
+            {
+                source: '/fortnite/api/game/v2/world/info',
+                destination: '/api/fortnite/fortnite/api/game/v2/world/info',
+            },
+            // Find Player (Matchmaking)
+            {
+                source: '/fortnite/api/matchmaking/session/findPlayer/:accountId',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session/findPlayer?accountId=:accountId',
+            },
+            // GetMcpTimeForLogin
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/GetMcpTimeForLogin',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/getMcpTimeForLogin?accountId=:accountId',
+            },
+            // IncrementNamedStatCounter
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/IncrementNamedCounterStat',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/incrementNamedCounterStat?accountId=Revvz',
             }
         ];
     },

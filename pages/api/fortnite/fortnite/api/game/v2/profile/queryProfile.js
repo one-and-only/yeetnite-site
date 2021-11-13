@@ -4,7 +4,6 @@ export default async function queryProfile(req, res) {
     if (req.query.accountId && req.query.profileId) {
         const serverTime = new Date().toISOString();
         switch (req.query.profileId) {
-            // TODO make personalization options dynamic (Needs some database work)
             case 'athena':
                 let athena = require('./profiles/athena.json');
                 const userDataAthena = (await executeQuery('SELECT created, lastLogin FROM users WHERE username = ?', [req.query.accountId]))[0];
@@ -56,6 +55,16 @@ export default async function queryProfile(req, res) {
                 common_public.profileChanges[0].profile.stats.attributes.homebase_name = req.query.accountId;
                 common_public.serverTime = serverTime;
                 res.json(common_public);
+                break;
+            case 'profile0':
+                let profile0 = require('./profiles/profile0.json');
+                const userDataProfile0 = await executeQuery('SELECT created, lastLogin FROM users WHERE username = ?', [req.query.accountId]);
+                // Change some data to be dynamic per user
+                profile0.profileChanges[0].profile.created = userDataProfile0[0].created;
+                profile0.profileChanges[0].profile.updated = userDataProfile0[0].lastLogin;
+                profile0.profileChanges[0].profile.accountId = req.query.accountId;
+                profile0.serverTime = serverTime;
+                res.json(profile0);
                 break;
             default:
                 res.status(400).json({
