@@ -216,6 +216,11 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/profile/:accountId/client/IncrementNamedCounterStat',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/incrementNamedCounterStat?accountId=Revvz',
+            },
+            // Epic Friend Codes
+            {
+                source: '/fortnite/api/game/v2/friendcodes/:accountId/epic',
+                destination: '/api/fortnite/fortnite/api/game/v2/friendcodes/epic?accountId=:accountId',
             }
         ];
     },
