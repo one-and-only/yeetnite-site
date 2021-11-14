@@ -1,8 +1,6 @@
 // TODO Standardize error handling
     // i. use `status(400).json(...error);` for bad requests/invalid data
 
-const { getRedirectStatus } = require("next/dist/lib/load-custom-routes");
-
 module.exports = {
     async rewrites() {
         return [
