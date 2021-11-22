@@ -32,17 +32,34 @@ export default function account(req, res) {
         });
     } else {
         if (typeof req.query.accountId === 'object') {
-            let userInfo = [];
-            for (let i = 0; i < req.query.accountId.length; i++) {
-                userInfo.push(
-                    {
-                        "id": req.query.accountId[i],
-                        "displayName": req.query.accountId[i],
-                        "externalAuths": {}
+            switch (req.headers["user-agent"]) {
+                // 1.8.2
+                case 'game=Fortnite, engine=UE4, build=++Fortnite+Release-Cert-CL-3741772':
+                    let accountIds = [];
+                    let displayNames = [];
+                    for (let i = 0; i < req.query.accountId.length; i++) {
+                        accountIds.push(req.query.accountId[i]);
+                        displayNames.push(req.query.accountId[i]);
                     }
-                );
+                    res.json([{
+                        "id": accountIds,
+                        "displayName": displayNames,
+                        "externalAuths": {}
+                    }]);
+                    break;
+                default:
+                    let userInfo = [];
+                    for (let i = 0; i < req.query.accountId.length; i++) {
+                        userInfo.push(
+                            {
+                                "id": req.query.accountId[i],
+                                "displayName": req.query.accountId[i],
+                                "externalAuths": {}
+                            }
+                        );
+                    }
+                    res.json(userInfo);
             }
-            res.json(userInfo);
         } else {
             res.json(
                 [
