@@ -97,12 +97,12 @@ module.exports = {
             // Version Check (New)
             {
                 source: '/fortnite/api/v2/versioncheck/:version',
-                destination: '/api/fortnite/fortnite/api/v2/versionCheck?version=:OSVersion',
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck?version=:version',
             },
             // Version Check (Old)
             {
                 source: '/fortnite/api/versioncheck',
-                destination: '/api/fortnite/fortnite/api/v2/versionCheck?version=:OSVersion'
+                destination: '/api/fortnite/fortnite/api/v2/versionCheck'
             },
             // get a user's receipt
             {

@@ -46,6 +46,32 @@ export default async function token(req, res) {
                     res.json({ status: 'error', reason: 'Invalid username' });
                 }
             });
+        } else if (req.body.grant_type == 'external_auth' && req.body.external_auth_token && req.body.token_type == 'eg1') {
+            executeQuery('SELECT username FROM users WHERE accessToken = ?', [req.body.external_auth_token]).then(async user => {
+                if (user.length > 0) {
+                    res.json({
+                        "access_token": req.body.external_auth_token,
+                        "expires_in": 28800,
+                        "expires_at": "9999-12-02T01:12:00Z",
+                        "token_type": "bearer",
+                        "refresh_token": req.body.external_auth_token,
+                        "refresh_expires": 28800,
+                        "refresh_expires_at": "9999-12-02T01:12:00Z",
+                        "account_id": user[0].username,
+                        "client_id": "yeetniteclientlol",
+                        "internal_client": true,
+                        "client_service": "fortnite",
+                        "device_id": "yeetnitedeviceidlol",
+                        "app": "fortnite",
+                        "in_app_id": user[0].username
+                    });
+                } else {
+                    res.json({
+                        success: false,
+                        reason: 'Invalid Auth Token during auto-login'
+                    });
+                }
+            });
         } else {
             res.json({
                 "access_token": accessToken,
