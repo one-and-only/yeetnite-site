@@ -5,7 +5,6 @@ This is the website for Yeetnite Services provided by Team Yeetnite. It allows y
 ## Official Links
 | Service            | Resource URL/Domain     |
 |--------------------|-------------------------|
-| Git                | https://git.yeetnite.ml |
 | Website            | https://yeetnite.ml     |
 | XMPP (FUTURE)      | xmpp.yeetnite.ml        |
 | Database (MariaDB) | db.yeetnite.ml          |
