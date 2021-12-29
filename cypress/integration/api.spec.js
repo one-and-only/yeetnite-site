@@ -22,7 +22,7 @@ describe('Test REST API', () => {
     it('Cloud Storage System', () => {
         cy.request('/fortnite/api/cloudstorage/system').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([]);
+            expect(response.body).to.not.be.empty;
         });
     });
     it('Waiting Room', () => {
