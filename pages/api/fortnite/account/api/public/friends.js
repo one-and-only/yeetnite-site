@@ -7,6 +7,23 @@ export default async function friends(req, res) {
         if (getPendingFriendRequests.length > 0) {
             // since there already is a pending request, it means that we are accepting the request and becoming friends
             await executeQuery("UPDATE friendRequests SET status = 'ACCEPTED' WHERE accountId = ? and ownerAccountId = ?", [req.query.accountId1, req.query.accountId2]);
+            // make users friends in XMPP (add to roster)
+            for (let i = 0; i < 2; i++)
+                await fetch("https://xmpp.yeetnite.ml/api/add_rosteritem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "localuser": i == 0 ? req.query.accountId1 : req.query.accountId2,
+                        "localhost": "xmpp.yeetnite.ml",
+                        "user": i == 0 ? req.query.accountId2 : req.query.accountId1,
+                        "host": "xmpp.yeetnite.ml",
+                        "nick": "none",
+                        "group": "Friends",
+                        "subs": "both"
+                    })
+                });
         } else {
             // since there is no pending request, it means that we are sending the request
             const serverTime = new Date().toISOString();
@@ -21,6 +38,19 @@ export default async function friends(req, res) {
         } else {
             // the user is removing a friend
             await executeQuery("DELETE FROM friendRequests WHERE ((ownerAccountId = ? AND accountId = ?) OR (ownerAccountId = ? AND accountId = ?)) AND status = 'ACCEPTED'", [req.query.accountId1, req.query.accountId2, req.query.accountId2, req.query.accountId1]);
+            for (let i = 0; i < 2; i++)
+                await fetch("https://xmpp.yeetnite.ml/api/delete_rosteritem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "localuser": i == 0 ? req.query.accountId1 : req.query.accountId2,
+                        "localhost": "xmpp.yeetnite.ml",
+                        "user": i == 0 ? req.query.accountId2 : req.query.accountId1,
+                        "host": "xmpp.yeetnite.ml"
+                    })
+                });
         }
         res.status(204).send();
     }

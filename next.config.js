@@ -1,5 +1,5 @@
 // TODO Standardize error handling
-    // i. use `status(400).json(...error);` for bad requests/invalid data
+// i. use `status(400).json(...error);` for bad requests/invalid data
 
 module.exports = {
     async rewrites() {
@@ -69,10 +69,10 @@ module.exports = {
                 source: '/account/api/oauth/sessions/kill',
                 destination: '/api/fortnite/account/api/oauth/sessions/kill',
             },
-            // Cloudstorage (System)
+            // Cloudstorage (System) DefaultEngine.ini
             {
-                source: '/fortnite/api/cloudstorage/system/:storageHash',
-                destination: '/api/fortnite/fortnite/api/cloudstorage/system?storageHash=:storageHash',
+                source: '/fortnite/api/cloudstorage/system/DefaultEngine.ini',
+                destination: '/FNConfigs/DefaultEngine.ini'
             },
             // Cloudstorage (System) without a "Storage Hash"
             {
