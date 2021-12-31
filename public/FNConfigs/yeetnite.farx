@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AutoResponder LastSave="2021-12-30T15:14:52.944154-06:00" FiddlerVersion="5.0.20211.51073">
+  <State Enabled="false" AcceptAllConnects="true" Fallthrough="true" UseLatency="false">
+    <ResponseRule Match="REGEX:https:\/\/.*\.ol\.epicgames\.com\/(.*)" Action="https://www.yeetnite.ml/$1" Enabled="false" />
+  </State>
+</AutoResponder>

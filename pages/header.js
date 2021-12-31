@@ -2,12 +2,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 // Bootstrap
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import Dropdown from 'react-bootstrap/Dropdown'
+import { Nav, Navbar, Button, Modal, Form, Dropdown } from 'react-bootstrap'
 // React.js
 import { useEffect, useState } from 'react';
 // Static image imports get cached efficiently
