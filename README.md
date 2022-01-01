@@ -6,5 +6,5 @@ This is the website for Yeetnite Services provided by Team Yeetnite. It allows y
 | Service            | Resource URL/Domain     |
 |--------------------|-------------------------|
 | Website            | https://yeetnite.ml     |
-| XMPP (FUTURE)      | xmpp.yeetnite.ml        |
+| XMPP               | xmpp.yeetnite.ml        |
 | Database (MariaDB) | db.yeetnite.ml          |
