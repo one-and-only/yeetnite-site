@@ -1,5 +1,4 @@
 import Header from "./header";
-import Footer from "./footer";
 import Link from "next/link";
 import styles from '../styles/download.module.scss';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
@@ -15,7 +14,6 @@ export default function Setup() {
       <div className={styles.mainText} align="center">
         <Link href="/FNConfigs/yeetnite.farx" download passHref><Button><FaCloudDownloadAlt /> Fiddler AutoResponder Rules</Button></Link>
       </div>
-      <Footer />
     </div>
   );
 }

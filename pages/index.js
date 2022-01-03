@@ -2,8 +2,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image'
 import Link from 'next/link';
 import styles from '../styles/home.module.scss';
-import yeetniteImg from '../public/images/yeetnite.webp'
-import Footer from './footer';
+import yeetniteImg from '../public/images/yeetnite.webp';
 
 const LoadCircle = dynamic(
   () => import('./loader'), { ssr: false }
@@ -28,7 +27,6 @@ export default function Home() {
         <Image src={yeetniteImg} alt='Yeetnite Logo' layout='intrinsic' className={styles.center} />
         <p className={styles.homeDescription}>Yeetnite is a Fortnite Private Server that implements all the capabilities of Fortnite and even allows for matchmaking, friending, partying up, etc.<br /><br />Please visit the <Link href="/features">Features</Link> page for more information on what we support</p>
       </div>
-      <Footer />
     </div>
   );
 }

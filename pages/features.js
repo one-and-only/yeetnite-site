@@ -1,4 +1,3 @@
-import Footer from "./footer";
 import Header from "./header";
 // styles
 import styles from '../styles/features.module.scss'
@@ -31,7 +30,6 @@ export default function Features() {
                <li>Matchmaking + Matches (Planned for Future)</li>
             </ul>
          </div>
-         <Footer />
       </div>
    );
 }
