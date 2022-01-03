@@ -1,10 +1,9 @@
 import Header from "./header";
-import Footer from "./footer";
 import Link from "next/link";
 import Image from "next/image";
 import styles from '../styles/setup.module.scss'
-import importFarx from '../public/images/import-farx.png'
-import enableRules from '../public/images/enable-rules.png'
+import importFarx from '../public/images/import-farx.webp'
+import enableRules from '../public/images/enable-rules.webp'
 
 /**
  * Component for the Setup Page
@@ -26,7 +25,6 @@ export default function Setup() {
           <li>Enjoy! 🎉🥳</li>
         </ol>
       </div>
-      <Footer />
     </div>
   );
 }
