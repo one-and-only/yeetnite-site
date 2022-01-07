@@ -10,7 +10,7 @@ import { Button } from "react-bootstrap";
 export default function Setup() {
   return (
     <div>
-      <Header />
+      <Header title="Download | Yeetnite" />
       <div className={styles.mainText} align="center">
         <Link href="/FNConfigs/yeetnite.farx" download passHref><Button><FaCloudDownloadAlt /> Fiddler AutoResponder Rules</Button></Link>
       </div>

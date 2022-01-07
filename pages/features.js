@@ -8,7 +8,7 @@ import styles from '../styles/features.module.scss'
 export default function Features() {
    return (
       <div className={styles.body}>
-         <Header />
+         <Header title="Features | Yeetnite" />
          <div className={styles.mainText}>
             <h2 id="supported-clients">Supported Clients</h2>
             <ul>

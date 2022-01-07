@@ -15,7 +15,7 @@ const ReactSwal = withReactContent(Swal);
 /**
  * Default component for the Header
  */
-export default function Header() {
+export default function Header({ title="Yeetnite" }) {
     const [usernameState, setUsername] = useState(false);
     const [themeColorState, setThemeColor] = useState("#2c2c2c");
     // initially don't show the modals
@@ -250,7 +250,7 @@ export default function Header() {
                 <meta name="msapplication-TileColor" content="#603cba" />
                 <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
                 <meta name="theme-color" content={themeColorState} />
-                <title>Yeetnite</title>
+                <title>{title}</title>
                 <meta name="description" content="Yeetnite is a Fortnite Private Server that implements all the capabilities of Fortnite and even allows for matchmaking, friending, partying up, etc." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>

@@ -11,7 +11,7 @@ import enableRules from '../public/images/enable-rules.webp'
 export default function Setup() {
   return (
     <div>
-      <Header />
+      <Header title="Setup | Yeetnite" />
       <div className={styles.mainText}>
         <ol>
           <li>Make sure you have downloaded a <Link href="/features">supported Fortnite client</Link></li>
