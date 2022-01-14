@@ -1,6 +1,3 @@
-// ! Remove when in production
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 // we need access to the raw ClientSettings.Sav data,
 // so disable the body parser
 export const config = {
@@ -27,7 +24,7 @@ export default function clientSettings(req, res) {
                         })
 
                         req.on('end', async () => {
-                            await fetch('https://localhost:8443/client_settings_sav', {
+                            await fetch(`https://${process.env.DBAPI_HOST}/client_settings_sav`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"

@@ -3,7 +3,7 @@ export default async function blockList(req, res) {
         // check if we are blocking a user or just getting the block list
         if (req.query.blocking) {
             if (req.method === "POST") {
-                await fetch('https://localhost:8443/block_user', {
+                await fetch(`https://${process.env.DBAPI_HOST}/block_user`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -12,7 +12,7 @@ export default async function blockList(req, res) {
                 });
                 res.status(204).send();
             } else if (req.method === "DELETE") {
-                await fetch('https://localhost:8443/unblock_user', {
+                await fetch(`https://${process.env.DBAPI_HOST}/unblock_user`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -27,7 +27,7 @@ export default async function blockList(req, res) {
                 });
             }
         } else {
-            res.json(await (await fetch(`https://localhost:8443/blocklist?accountId=${encodeURIComponent(req.query.accountId)}`)).json());
+            res.json(await (await fetch(`https://${process.env.DBAPI_HOST}/blocklist?accountId=${encodeURIComponent(req.query.accountId)}`)).json());
         }
     } else {
         res.status(400).json({

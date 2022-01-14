@@ -4,8 +4,8 @@ export default async function queryProfile(req, res) {
         switch (req.query.profileId) {
             case 'athena':
                 let athena = require('./profiles/athena.json');
-                const userDataAthena = (await (await fetch(`https://localhost:8443/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json())[0];
-                const lockerData = (await (await fetch(`https://localhost:8443/athena_profile_data?username=${encodeURIComponent(req.query.accountId)}`)).json())[0];
+                const userDataAthena = (await (await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json())[0];
+                const lockerData = (await (await fetch(`https://${process.env.DBAPI_HOST}/athena_profile_data?username=${encodeURIComponent(req.query.accountId)}`)).json())[0];
                 // Change some profile time data to be dynamic per user
                 athena.profileChanges[0].profile.created = userDataAthena.created;
                 athena.profileChanges[0].profile.updated = userDataAthena.lastLogin;
@@ -35,7 +35,7 @@ export default async function queryProfile(req, res) {
                 break;
             case 'common_core':
                 let common_core = require('./profiles/common_core.json');
-                const userDataCommonCore = await (await fetch(`https://localhost:8443/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json();
+                const userDataCommonCore = await (await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json();
                 // Change some data to be dynamic per user
                 common_core.profileChanges[0].profile.created = userDataCommonCore[0].created;
                 common_core.profileChanges[0].profile.updated = userDataCommonCore[0].lastLogin;
@@ -45,7 +45,7 @@ export default async function queryProfile(req, res) {
                 break;
             case 'common_public':
                 let common_public = require('./profiles/common_public.json');
-                const userDataCommonPublic = await (await fetch(`https://localhost:8443/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json();
+                const userDataCommonPublic = await (await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json();
                 // Change some data to be dynamic per user
                 common_public.profileChanges[0].profile.created = userDataCommonPublic[0].created;
                 common_public.profileChanges[0].profile.updated = userDataCommonPublic[0].lastLogin;
@@ -56,7 +56,7 @@ export default async function queryProfile(req, res) {
                 break;
             case 'profile0':
                 let profile0 = require('./profiles/profile0.json');
-                const userDataProfile0 = await fetch(`https://localhost:8443/created_last_login?username=${encodeURIComponent(req.query.accountId)}`);
+                const userDataProfile0 = await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`);
                 // Change some data to be dynamic per user
                 profile0.profileChanges[0].profile.created = userDataProfile0[0].created;
                 profile0.profileChanges[0].profile.updated = userDataProfile0[0].lastLogin;

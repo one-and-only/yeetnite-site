@@ -1,6 +1,3 @@
-// ! Remove when in production
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 export default async function processUserRequest(req, res) {
     if (req.method === "POST") {
         // sanity check
@@ -9,7 +6,7 @@ export default async function processUserRequest(req, res) {
             return;
         } else {
             // do register request
-            res.json(await ((await fetch(`https://localhost:8443/register?username=${encodeURIComponent(req.body.username)}&email=${encodeURIComponent(req.body.email)}&password=${encodeURIComponent(req.body.password)}`, {
+            res.json(await ((await fetch(`https://${process.env.DBAPI_HOST}/register?username=${encodeURIComponent(req.body.username)}&email=${encodeURIComponent(req.body.email)}&password=${encodeURIComponent(req.body.password)}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -22,7 +19,7 @@ export default async function processUserRequest(req, res) {
             res.json({ success: false, reason: "We have received invalid data and are unable to receive your request" });
             return;
         } else {
-            res.json(await ((await fetch(`https://localhost:8443/login?username=${encodeURIComponent(req.query.username)}&password=${encodeURIComponent(req.query.password)}`)).json()));
+            res.json(await ((await fetch(`https://${process.env.DBAPI_HOST}/login?username=${encodeURIComponent(req.query.username)}&password=${encodeURIComponent(req.query.password)}`)).json()));
         }
     } else {
         res.json({ success: false, reason: "Invalid HTTP Method" });
