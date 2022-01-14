@@ -1,22 +1,24 @@
-import { executeQuery } from '../../../../../../includes/db';
-
 export default async function blockList(req, res) {
     if (req.query.accountId) {
-        const blockList = await executeQuery('SELECT blockList FROM users WHERE username = ?', [req.query.accountId]);
         // check if we are blocking a user or just getting the block list
         if (req.query.blocking) {
             if (req.method === "POST") {
-                let updatedBlockList = JSON.parse(blockList[0].blockList);
-                updatedBlockList.push(req.query.blocking);
-                await executeQuery('UPDATE users SET blockList = ? WHERE username = ?', [JSON.stringify(updatedBlockList), req.query.accountId]);
-                // unfriend the user if they're being blocked
-                await executeQuery('DELETE FROM friendRequests WHERE (ownerAccountId = ? AND accountId = ?) OR (ownerAccountId = ? AND accountId = ?)', [req.query.accountId, req.query.blocking, req.query.blocking, req.query.accountId]);
+                await fetch('https://localhost:8443/block_user', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(req.query)
+                });
                 res.status(204).send();
             } else if (req.method === "DELETE") {
-                let updatedBlockList = JSON.parse(blockList[0].blockList);
-                updatedBlockList.splice(updatedBlockList.indexOf(req.query.blocking), 1);
-                updatedBlockList.indexOf(req.query.blocking);
-                await executeQuery('UPDATE users SET blockList = ? WHERE username = ?', [JSON.stringify(updatedBlockList), req.query.accountId]);
+                await fetch('https://localhost:8443/unblock_user', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(req.query)
+                });
                 res.status(204).send();
             } else {
                 res.status(405).json({
@@ -25,11 +27,7 @@ export default async function blockList(req, res) {
                 });
             }
         } else {
-            res.json(
-                {
-                    "blockedUsers": JSON.parse(blockList[0].blockList)
-                }
-            );
+            res.json(await (await fetch(`https://localhost:8443/blocklist?accountId=${encodeURIComponent(req.query.accountId)}`)).json());
         }
     } else {
         res.status(400).json({

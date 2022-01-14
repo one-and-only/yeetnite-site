@@ -1,4 +1,5 @@
-import { executeQuery } from '../../../../../../../includes/db';
+// ! Remove when in production
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // we need access to the raw ClientSettings.Sav data,
 // so disable the body parser
@@ -25,8 +26,17 @@ export default function clientSettings(req, res) {
                             buffer += chunk;
                         })
 
-                        req.on('end', () => {
-                            executeQuery('UPDATE users SET clientSettings = ? WHERE username = ?', [Buffer.from(buffer).toString(), req.query.accountId]);
+                        req.on('end', async () => {
+                            await fetch('https://localhost:8443/client_settings_sav', {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    fileContents: Buffer.from(buffer).toString(),
+                                    username: req.query.accountId
+                                })
+                            });
                             res.status(204).send();
                             resolve(true);
                         })
