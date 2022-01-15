@@ -56,7 +56,7 @@ export default async function queryProfile(req, res) {
                 break;
             case 'profile0':
                 let profile0 = require('./profiles/profile0.json');
-                const userDataProfile0 = await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`);
+                const userDataProfile0 = await (await fetch(`https://${process.env.DBAPI_HOST}/created_last_login?username=${encodeURIComponent(req.query.accountId)}`)).json();
                 // Change some data to be dynamic per user
                 profile0.profileChanges[0].profile.created = userDataProfile0[0].created;
                 profile0.profileChanges[0].profile.updated = userDataProfile0[0].lastLogin;
