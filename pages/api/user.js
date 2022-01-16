@@ -7,10 +7,7 @@ export default async function processUserRequest(req, res) {
         } else {
             // do register request
             res.json(await ((await fetch(`https://${process.env.DBAPI_HOST}/register?username=${encodeURIComponent(req.body.username)}&email=${encodeURIComponent(req.body.email)}&password=${encodeURIComponent(req.body.password)}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                method: "POST"
             })).json()));
         }
     } else if (req.method === "GET") {

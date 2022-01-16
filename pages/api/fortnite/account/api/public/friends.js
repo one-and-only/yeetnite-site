@@ -1,6 +1,6 @@
 export default async function friends(req, res) {
     if (req.method === "POST") {
-        await fetch(`https://${process.env.DBAPI_HOST}/friend_reques`, {
+        await fetch(`https://${process.env.DBAPI_HOST}/friend_request`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
