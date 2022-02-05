@@ -32,3 +32,4 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           NEXT_TELEMETRY_DISABLED: ${{ secrets.NEXT_TELEMETRY_DISABLED }}
+          DBAPI_HOST: ${{ secrets.DBAPI_HOST }}
