@@ -74,7 +74,12 @@ module.exports = {
                 source: '/fortnite/api/cloudstorage/system/DefaultEngine.ini',
                 destination: '/FNConfigs/DefaultEngine.ini'
             },
-            // Cloudstorage (System) without a "Storage Hash"
+            // Cloudstorage (User) Get ClientSettings.Sav File Attributes For Username
+            {
+                source: '/fortnite/api/cloudstorage/user/:accountId',
+                destination: '/api/fortnite/fortnite/api/cloudstorage/user?accountId=:accountId'
+            },
+            // Cloudstorage (System)
             {
                 source: '/fortnite/api/cloudstorage/system',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/system',
@@ -84,7 +89,7 @@ module.exports = {
                 source: '/friends/api/public/friends/:accountId',
                 destination: '/api/fortnite/friends/api/public/friends?accountId=:accountId',
             },
-            // User Settings (probably NOT ClientSettings.Sav???)
+            // User Settings
             {
                 source: '/friends/api/v1/:accountId/settings',
                 destination: '/api/fortnite/friends/api/v1/settings?accountId=:accountId',
@@ -133,11 +138,6 @@ module.exports = {
             {
                 source: '/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
                 destination: '/api/fortnite/fortnite/api/cloudstorage/user/clientSettings?accountId=:accountId',
-            },
-            // Cloudstorage for Fortnite user
-            {
-                source: '/fortnite/api/cloudstorage/user/:accountId',
-                destination: '/api/fortnite/fortnite/api/cloudstorage/user?accountId=:accountId',
             },
             // User's Block List
             {
