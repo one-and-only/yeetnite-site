@@ -67,6 +67,12 @@ describe('Test REST API', () => {
             });
         });
     });
+    it('ClientSettings.Sav Download', () => {
+        cy.request('/fortnite/api/cloudstorage/user/testUser/ClientSettings.Sav').then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.not.be.empty;
+        });
+    });
     it('ClientQuestLogin', () => {
         cy.request({
             method: 'POST',
@@ -85,7 +91,7 @@ describe('Test REST API', () => {
             body: {},
         }).then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([]);
+            expect(response.body).to.not.be.empty;
         })
     });
     it('Query Profile - Athena', () => {
