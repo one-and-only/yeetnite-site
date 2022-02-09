@@ -77,7 +77,7 @@ module.exports = {
             // Cloudstorage (User) Get ClientSettings.Sav File Attributes For Username
             {
                 source: '/fortnite/api/cloudstorage/user/:accountId',
-                destination: 'https://dbapi.yeetnite.ml/client_settings_sav_fileinfo?username=:accountId'
+                destination: 'https://dbapi.yeetnite.ml:8443/client_settings_sav_fileinfo?username=:accountId'
             },
             // Cloudstorage (System)
             {
@@ -137,7 +137,7 @@ module.exports = {
             // Get or Set ClientSettings.Sav (but saved in the database)
             {
                 source: '/fortnite/api/cloudstorage/user/:accountId/ClientSettings.Sav',
-                destination: `https://dbapi.yeetnite.ml/client_settings_sav?username=:accountId`,
+                destination: `https://dbapi.yeetnite.ml:8443/client_settings_sav?username=:accountId`,
             },
             // User's Block List
             {
