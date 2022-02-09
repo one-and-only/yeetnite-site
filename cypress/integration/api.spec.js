@@ -86,7 +86,7 @@ describe('Test REST API', () => {
     });
     it('Cloud Storage Personal', () => {
         cy.request({
-            method: 'POST',
+            method: 'GET',
             url: '/fortnite/api/cloudstorage/user/testUser',
             body: {},
         }).then(response => {
