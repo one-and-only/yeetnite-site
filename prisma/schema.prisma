@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model friendRequests {
+  accountId        String  @db.VarChar(255)
+  ownerAccountId   String  @db.VarChar(255)
+  status           String  @default("PENDING") @db.VarChar(255)
+  created          String  @db.VarChar(255)
+  favorite         Boolean @default(false)
+  friendRequest_id Int     @id @default(autoincrement())
+}
+
+model locker {
+  favorite_victorypose     String @default("") @db.VarChar(255)
+  favorite_consumableemote String @default("") @db.VarChar(255)
+  banner_color             String @default("DefaultColor8") @db.VarChar(255)
+  favorite_callingcard     String @default("") @db.VarChar(255)
+  favorite_character       String @default("AthenaCharacter:CID_028_Athena_Commando_F") @db.VarChar(255)
+  favorite_spray           String @default("[]") @db.VarChar(255)
+  favorite_loadingscreen   String @default("AthenaLoadingScreen:LSID_004_TacticalShotgun") @db.VarChar(255)
+  favorite_hat             String @default("") @db.VarChar(255)
+  favorite_battlebus       String @default("") @db.VarChar(255)
+  favorite_mapmarker       String @default("") @db.VarChar(255)
+  favorite_vehicledeco     String @default("") @db.VarChar(255)
+  favorite_backpack        String @default("") @db.VarChar(255)
+  favorite_dance           String @default("[\"AthenaDance:EID_Wiggle\",\"AthenaDance:EID_TakeTheL\",\"AthenaDance:EID_Floss\",\"AthenaDance:EID_Robot\",\"AthenaDance:EID_Wave\",\"\"]") @db.VarChar(255)
+  favorite_skydivecontrail String @default("AthenaSkyDiveContrail:Trails_ID_002_Rainbow") @db.VarChar(255)
+  favorite_pickaxe         String @default("AthenaPickaxe:Pickaxe_Flamingo") @db.VarChar(255)
+  favorite_glider          String @default("AthenaGlider:Umbrella_Gold") @db.VarChar(255)
+  favorite_musicpack       String @default("") @db.VarChar(255)
+  favorite_itemwraps       String @default("[\"\",\"\",\"\",\"\",\"\",\"\",\"\"]") @db.VarChar(255)
+  banner_icon              String @default("BRSeason02Salt") @db.VarChar(255)
+  user_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
+  users                    users  @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "locker_ibfk_1")
+
+  @@index([user_id], map: "locker_idx_user_id")
+}
+
+model status {
+  status_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
+  rest_api_status            String @default("Online/Operational") @db.VarChar(255)
+  xmpp_status                String @default("Online/Operational") @db.VarChar(255)
+  matchmaking_status         String @default("Online/Operational") @db.VarChar(255)
+  rest_api_status_code       Int    @default(0) @db.TinyInt
+  xmpp_status_code           Int    @default(0) @db.TinyInt
+  matchmaking_status_code    Int    @default(0) @db.TinyInt
+  rest_api_status_comment    String @default("") @db.VarChar(255)
+  xmpp_status_comment        String @default("") @db.VarChar(255)
+  matchmaking_status_comment String @default("") @db.VarChar(255)
+}
+
+model users {
+  user_id                   Int     @id @default(autoincrement()) @db.UnsignedInt
+  username                  String  @db.VarChar(18)
+  email                     String  @db.VarChar(255)
+  password                  String  @db.Text
+  accessToken               String? @db.VarChar(16)
+  clientSettings            Bytes?  @db.Blob
+  clientSettingsLastUpdated String? @db.VarChar(255)
+  created                   String  @default("2020-01-01T17:22:28.023Z") @db.VarChar(255)
+  lastLogin                 String? @db.VarChar(255)
+  preferredLanguage         String  @default("en") @db.Char(2)
+  blockList                 String  @default("[]") @db.Text
+  locker                    locker?
+
+  @@unique([username, email], map: "uniqueUserInfo")
+}
