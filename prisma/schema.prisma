@@ -57,8 +57,8 @@ model status {
 
 model users {
   user_id                   Int     @id @default(autoincrement()) @db.UnsignedInt
-  username                  String  @db.VarChar(18)
-  email                     String  @db.VarChar(255)
+  username                  String  @db.VarChar(18) @unique
+  email                     String  @db.VarChar(255) @unique
   password                  String  @db.Text
   accessToken               String? @db.VarChar(16)
   clientSettings            Bytes?  @db.Blob

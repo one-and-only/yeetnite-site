@@ -1,24 +1,44 @@
+import { prisma } from '@lib/prisma';
+
+async function getBlocklist(username) {
+    return JSON.parse((await prisma.users.findFirst({
+        select: {
+            blockList: true
+        },
+        where: {
+            username: username
+        }
+    })).blockList);
+}
+
+async function updateBlocklist(blockList, username) {
+    await prisma.users.update({
+        data: {
+            blockList: JSON.stringify(blockList)
+        },
+        where: {
+            username: username
+        }
+    });
+}
+
 export default async function blockList(req, res) {
     if (req.query.accountId) {
         // check if we are blocking a user or just getting the block list
         if (req.query.blocking) {
             if (req.method === "POST") {
-                await fetch(`https://${process.env.DBAPI_HOST}/block_user`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(req.query)
-                });
+                let blockList = await getBlocklist(req.query.accountId);
+                blockList.push(req.query.blocking);
+                await updateBlocklist(blockList, req.query.accountId);
+                // unfriend the user if they're being blocked
+                await prisma.$queryRaw`DELETE FROM friendRequests WHERE (ownerAccountId = ${req.query.accountId} AND accountId = ${req.query.blocking}) OR (ownerAccountId = ${req.query.blocking} AND accountId = ${req.query.accountId})`;
+
                 res.status(204).send();
             } else if (req.method === "DELETE") {
-                await fetch(`https://${process.env.DBAPI_HOST}/unblock_user`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(req.query)
-                });
+                let blockList = await getBlocklist(req.query.accountId);
+                blockList.splice(blockList.indexOf(req.query.blocking), 1);
+                await updateBlocklist(blockList, req.query.accountId);
+
                 res.status(204).send();
             } else {
                 res.status(405).json({
@@ -27,7 +47,9 @@ export default async function blockList(req, res) {
                 });
             }
         } else {
-            res.json(await (await fetch(`https://${process.env.DBAPI_HOST}/blocklist?accountId=${encodeURIComponent(req.query.accountId)}`)).json());
+            res.json({
+                "blockedUsers": await getBlocklist(req.query.accountId)
+            });
         }
     } else {
         res.status(400).json({
