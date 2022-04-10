@@ -59,7 +59,7 @@ export default async function clientSettingsSav(req, res) {
                 })).clientSettings;
                 if (clientSettingsSav) {
                     res.setHeader('Content-Type', 'application/octet-stream');
-                    res.send(Buffer.from(inflateSync(Buffer.from(clientSettingsSav.clientSettings.toString(), 'base64')).toString(), 'base64'));
+                    res.send(Buffer.from(inflateSync(Buffer.from(clientSettingsSav.toString(), 'base64')).toString(), 'base64'));
                 }
                 break;
             default:
