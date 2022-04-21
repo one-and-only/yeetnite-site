@@ -61,7 +61,7 @@ model users {
   email                     String  @db.VarChar(255) @unique
   password                  String  @db.Text
   accessToken               String? @db.VarChar(16)
-  clientSettings            Bytes?  @db.Blob
+  clientSettings            String? @db.Text
   clientSettingsLastUpdated String? @db.VarChar(255)
   created                   String  @default("2020-01-01T17:22:28.023Z") @db.VarChar(255)
   lastLogin                 String? @db.VarChar(255)

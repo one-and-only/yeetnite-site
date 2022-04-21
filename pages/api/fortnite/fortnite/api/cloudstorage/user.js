@@ -37,30 +37,19 @@ export default async function clientSettingsSav(req, res) {
     } else {
         switch (req.method) {
             case "PUT":
-                await prisma.users.update({
-                    data: {
-                        clientSettings: Buffer.from(deflateSync(req.body.toString('base64')).toString('base64')),
-                        clientSettingsLastUpdated: new Date().toISOString()
-                    },
-                    where: {
-                        username: req.query.accountId
-                    }
-                });
+                const clientSettings = deflateSync(req.body.toString('base64')).toString('base64');
+                await prisma.$queryRaw`UPDATE users SET clientSettings = ${clientSettings}, clientSettingsLastUpdated = ${new Date().toISOString()} WHERE username = ${req.query.accountId}`;
                 res.status(204).send();
                 break;
             case "GET":
-                const clientSettingsSav = (await prisma.users.findFirst({
-                    select: {
-                        clientSettings: true
-                    },
-                    where: {
-                        username: req.query.accountId
-                    }
-                })).clientSettings;
-                if (clientSettingsSav) {
-                    res.setHeader('Content-Type', 'application/octet-stream');
-                    res.send(Buffer.from(inflateSync(Buffer.from(clientSettingsSav.toString(), 'base64')).toString(), 'base64'));
+                const clientSettingsSav = (await prisma.$queryRaw`SELECT clientSettings FROM users WHERE username = ${req.query.accountId}`)[0];
+                if (!clientSettingsSav.clientSettings) {
+                    res.status(204).send();
+                    return;
                 }
+
+                res.setHeader('Content-Type', 'application/octet-stream');
+                res.send(inflateSync(Buffer.from(clientSettingsSav.clientSettings, 'base64')).toString());
                 break;
             default:
                 res.status(400).json({
