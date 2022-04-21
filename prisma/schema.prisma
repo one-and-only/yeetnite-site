@@ -57,10 +57,10 @@ model status {
 
 model users {
   user_id                   Int     @id @default(autoincrement()) @db.UnsignedInt
-  username                  String  @db.VarChar(18) @unique
-  email                     String  @db.VarChar(255) @unique
+  username                  String  @unique(map: "username") @db.VarChar(18)
+  email                     String  @unique(map: "email") @db.VarChar(255)
   password                  String  @db.Text
-  accessToken               String? @db.VarChar(16)
+  accessToken               String? @db.Char(16)
   clientSettings            String? @db.Text
   clientSettingsLastUpdated String? @db.VarChar(255)
   created                   String  @default("2020-01-01T17:22:28.023Z") @db.VarChar(255)
@@ -68,6 +68,4 @@ model users {
   preferredLanguage         String  @default("en") @db.Char(2)
   blockList                 String  @default("[]") @db.Text
   locker                    locker?
-
-  @@unique([username, email], map: "uniqueUserInfo")
 }
