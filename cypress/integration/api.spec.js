@@ -262,13 +262,22 @@ describe('Test REST API', () => {
             expect(response.status).to.equal(204);
         });
     });
-    it('STW Refresh Expeditions (Campaign)', () => {
+    it('STW Refresh Expeditions (Campaign; rvn = -1)', () => {
         cy.request({
             method: 'POST',
             url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=campaign&rvn=-1'
         }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body).to.not.be.empty;
+        });
+    });
+    it('STW Refresh Expeditions (Campaign; rvn != -1)', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.deep.equal([]);
         });
     });
 });

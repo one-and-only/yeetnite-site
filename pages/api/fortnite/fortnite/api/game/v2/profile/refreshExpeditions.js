@@ -34,18 +34,33 @@ export default async function refreshExpeditions(req, res) {
     const serverTime = new Date().toISOString();
     switch (req.query.profileId) {
         case 'campaign':
-            let campaign = require('./profiles/expeditions_campaign.json');
+            switch (req.query.rvn) {
+                case "-1":
+                    let campaign = require('./profiles/expeditions_campaign.json');
 
-            campaign.profileChanges[0].profile.accountId = req.query.accountId;
-            campaign.profileChanges[0].profile.created = await getCreated(req.query.accountId);
-            campaign.profileChanges[0].profile.updated = serverTime;
-            campaign.serverTime = serverTime;
+                    campaign.profileChanges[0].profile.accountId = req.query.accountId;
+                    campaign.profileChanges[0].profile.created = await getCreated(req.query.accountId);
+                    campaign.profileChanges[0].profile.updated = serverTime;
+                    campaign.serverTime = serverTime;
 
-            // we don't want to update if the user doesn't exist
-            if (campaign.profileChanges[0].profile.created)
-                await setUpdated(req.query.accountId, serverTime);
+                    // we don't want to update if the user doesn't exist
+                    if (campaign.profileChanges[0].profile.created)
+                        await setUpdated(req.query.accountId, serverTime);
 
-            res.json(campaign);
+                    res.json(campaign);
+                    break;
+                default:
+                    res.json({
+                        profileRevision: req.query.rvn,
+                        profileId: "campaign",
+                        profileChangesBaseRevision: req.query.rvn,
+                        profileChanges: [],
+                        profileCommandRevision: 617,
+                        serverTime: new Date().toISOString(),
+                        responseVersion: 1
+                    });
+                    break;
+            }
             break;
         default:
             res.status(400).json({
