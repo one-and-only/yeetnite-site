@@ -79,6 +79,14 @@ export default async function queryProfile(req, res) {
             profile0.serverTime = serverTime;
             res.json(profile0);
             break;
+        case 'collection_book_people0':
+            let collection_book_people0 = require('./profiles/collection_book_people0.json');
+            collection_book_people0.serverTime = serverTime;
+            collection_book_people0.profileChanges[0].profile.accountId = req.query.accountId;
+            collection_book_people0.profileChanges[0].profile.created = createdLastLogin.created;
+            collection_book_people0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(collection_book_people0);
+            break;
         default:
             res.status(400).json({
                 success: false,

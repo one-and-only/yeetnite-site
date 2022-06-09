@@ -280,4 +280,13 @@ describe('Test REST API', () => {
             expect(response.body.profileChanges).to.deep.equal([]);
         });
     });
+    it('Query Profile - collection_book_people0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_people0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.not.be.empty;
+        });
+    });
 });
