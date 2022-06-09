@@ -51,11 +51,11 @@ export default async function refreshExpeditions(req, res) {
                     break;
                 default:
                     res.json({
-                        profileRevision: req.query.rvn,
+                        profileRevision: parseInt(req.query.rvn),
                         profileId: "campaign",
-                        profileChangesBaseRevision: req.query.rvn,
+                        profileChangesBaseRevision: parseInt(req.query.rvn),
                         profileChanges: [],
-                        profileCommandRevision: 617,
+                        profileCommandRevision: parseInt(req.query.rvn) - 10,
                         serverTime: new Date().toISOString(),
                         responseVersion: 1
                     });
