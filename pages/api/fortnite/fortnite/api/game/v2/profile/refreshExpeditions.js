@@ -11,17 +11,6 @@ async function getCreated(username) {
     }))?.created;
 }
 
-async function setUpdated(username, updated) {
-    await prisma.users.update({
-        where: {
-            username: username
-        },
-        data: {
-            lastLogin: updated
-        }
-    });
-}
-
 export default async function refreshExpeditions(req, res) {
     if (req.method !== "POST") {
         res.status(400).json({
@@ -42,10 +31,6 @@ export default async function refreshExpeditions(req, res) {
                     campaign.profileChanges[0].profile.created = await getCreated(req.query.accountId);
                     campaign.profileChanges[0].profile.updated = serverTime;
                     campaign.serverTime = serverTime;
-
-                    // we don't want to update if the user doesn't exist
-                    if (campaign.profileChanges[0].profile.created)
-                        await setUpdated(req.query.accountId, serverTime);
 
                     res.json(campaign);
                     break;
