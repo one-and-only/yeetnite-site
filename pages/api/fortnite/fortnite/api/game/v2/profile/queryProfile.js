@@ -119,6 +119,14 @@ export default async function queryProfile(req, res) {
             theater0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             res.json(theater0);
             break;
+        case 'outpost0':
+            let outpost0 = require('./profiles/outpost0.json');
+            outpost0.serverTime = serverTime;
+            outpost0.profileChanges[0].profile.accountId = req.query.accountId;
+            outpost0.profileChanges[0].profile.created = createdLastLogin.created;
+            outpost0.profileChanges[0].profile.updated = createdLastLogin.updated;
+            res.json(outpost0);
+            break;
         default:
             res.status(400).json({
                 success: false,

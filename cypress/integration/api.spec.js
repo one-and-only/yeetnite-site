@@ -318,13 +318,22 @@ describe('Test REST API', () => {
             expect(response.body.profileId).to.equal('metadata');
         });
     });
-    it('Query Profiole - theater0', () => {
+    it('Query Profile - theater0', () => {
         cy.request({
             method: 'POST',
             url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=theater0&rvn=-1'
         }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body.profileId).to.equal('theater0');
+        });
+    });
+    it('Query Profile - outpost0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=outpost0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('outpost0');
         });
     });
 });
