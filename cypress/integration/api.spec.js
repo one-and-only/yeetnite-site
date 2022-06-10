@@ -236,13 +236,13 @@ describe('Test REST API', () => {
     it('Public Account Variation 1', () => {
         cy.request('/account/api/public/account?accountId=testUser').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([{"id":"testUser","displayName":"testUser","externalAuths":{}}]);
+            expect(response.body).to.deep.equal([{ "id": "testUser", "displayName": "testUser", "externalAuths": {} }]);
         });
     });
     it('Public Account Variation 1 - Multiple Users', () => {
         cy.request('/account/api/public/account?accountId=Revvz&accountId=Fischsalat').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([{"id":"Revvz","displayName":"Revvz","externalAuths":{}},{"id":"Fischsalat","displayName":"Fischsalat","externalAuths":{}}]);
+            expect(response.body).to.deep.equal([{ "id": "Revvz", "displayName": "Revvz", "externalAuths": {} }, { "id": "Fischsalat", "displayName": "Fischsalat", "externalAuths": {} }]);
         });
     });
     it('Public Acount Variation 2', () => {
@@ -294,7 +294,7 @@ describe('Test REST API', () => {
     it('Query Profile - collection_book_schematics0', () => {
         cy.request({
             method: 'POST',
-            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_schematics0&rvn=-1' 
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_schematics0&rvn=-1'
         }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body.profileChanges).to.not.be.empty;
@@ -354,4 +354,13 @@ describe('Test REST API', () => {
             expect(response.body.profileId).to.equal('campaign');
         });
     });
+    it('ClaimLoginReward', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/ClaimLoginReward?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    })
 });

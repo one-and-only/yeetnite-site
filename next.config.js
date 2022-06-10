@@ -229,6 +229,11 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/profile/:accountId/client/MarkNewQuestNotificationSent',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/markNewQuestNotificationSent?accountId=:accountId'
+            },
+            // STW Claim Login Reward
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/ClaimLoginReward',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/claimLoginReward?accountId=:accountId'
             }
         ];
     },
