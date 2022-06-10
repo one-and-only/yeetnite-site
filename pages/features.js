@@ -23,7 +23,7 @@ export default function Features() {
             <ul>
                <li>Login + Fortnite Lobby</li>
                <li>Emotes</li>
-               <li>Persistent Locker Customization</li>
+               <li>Locker Customization</li>
                <li>XMPP (Friend Requests + Block/Unblock Users, Partying, Whisper, Live Presence Updates)</li>
                <li>Persistent Per-Player Saves</li>
                <li>Save The World Lobby</li>
