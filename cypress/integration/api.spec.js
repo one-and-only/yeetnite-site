@@ -236,13 +236,13 @@ describe('Test REST API', () => {
     it('Public Account Variation 1', () => {
         cy.request('/account/api/public/account?accountId=testUser').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([{"id":"testUser","displayName":"testUser","externalAuths":{}}]);
+            expect(response.body).to.deep.equal([{ "id": "testUser", "displayName": "testUser", "externalAuths": {} }]);
         });
     });
     it('Public Account Variation 1 - Multiple Users', () => {
         cy.request('/account/api/public/account?accountId=Revvz&accountId=Fischsalat').then(response => {
             expect(response.status).to.equal(200);
-            expect(response.body).to.deep.equal([{"id":"Revvz","displayName":"Revvz","externalAuths":{}},{"id":"Fischsalat","displayName":"Fischsalat","externalAuths":{}}]);
+            expect(response.body).to.deep.equal([{ "id": "Revvz", "displayName": "Revvz", "externalAuths": {} }, { "id": "Fischsalat", "displayName": "Fischsalat", "externalAuths": {} }]);
         });
     });
     it('Public Acount Variation 2', () => {
@@ -260,6 +260,116 @@ describe('Test REST API', () => {
             url: '/account/api/oauth/sessions/kill?killType=OTHERS_ACCOUNT_CLIENT_SERVICE',
         }).then(response => {
             expect(response.status).to.equal(204);
+        });
+    });
+    it('STW Refresh Expeditions (Campaign; rvn = -1)', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=campaign&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.not.be.empty;
+        });
+    });
+    it('STW Refresh Expeditions (Campaign; rvn != -1)', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.deep.equal([]);
+        });
+    });
+    it('STW Refresh Expeditions (profile0)', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=profile0&rvn=499'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('profile0');
+        });
+    })
+
+    // TODO: Migrate to checking `response.body.profileId` to ensure it is the right profile
+    it('Query Profile - collection_book_people0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_people0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.not.be.empty;
+        });
+    });
+    it('Query Profile - collection_book_schematics0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_schematics0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.not.be.empty;
+        });
+    });
+    it('Query Profile - campaign', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    });
+    it('Query Profile - metadata', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=metadata&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('metadata');
+        });
+    });
+    it('Query Profile - theater0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=theater0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('theater0');
+        });
+    });
+    it('Query Profile - outpost0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=outpost0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('outpost0');
+        });
+    });
+    it('ClientQuestLogin - Campaign', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/ClientQuestLogin?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    });
+    it('MarkNewQuestNotificationSent', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/MarkNewQuestNotificationSent?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    });
+    it('ClaimLoginReward', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/ClaimLoginReward?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
         });
     });
 });

@@ -79,6 +79,54 @@ export default async function queryProfile(req, res) {
             profile0.serverTime = serverTime;
             res.json(profile0);
             break;
+        case 'collection_book_people0':
+            let collection_book_people0 = require('./profiles/collection_book_people0.json');
+            collection_book_people0.serverTime = serverTime;
+            collection_book_people0.profileChanges[0].profile.accountId = req.query.accountId;
+            collection_book_people0.profileChanges[0].profile.created = createdLastLogin.created;
+            collection_book_people0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(collection_book_people0);
+            break;
+        case 'collection_book_schematics0':
+            let collection_book_schematics0 = require('./profiles/collection_book_schematics0.json');
+            collection_book_schematics0.serverTime = serverTime;
+            collection_book_schematics0.profileChanges[0].profile.accountId = req.query.accountId;
+            collection_book_schematics0.profileChanges[0].profile.created = createdLastLogin.created;
+            collection_book_schematics0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(collection_book_schematics0);
+            break;
+        case 'campaign':
+            let campaign = require('./profiles/campaign.json');
+            campaign.serverTime = serverTime;
+            campaign.profileRevision = parseInt(req.query.rvn);
+            campaign.profileChangesBaseRevision = parseInt(req.query.rvn);
+            campaign.profileCommandRevision = parseInt(req.query.rvn) - 10;
+            res.json(campaign);
+            break;
+        case 'metadata':
+            let metadata = require('./profiles/metadata.json');
+            metadata.serverTime = serverTime;
+            metadata.profileChanges[0].profile.accountId = req.query.accountId;
+            metadata.profileChanges[0].profile.created = createdLastLogin.created;
+            metadata.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(metadata);
+            break;
+        case 'theater0':
+            let theater0 = require('./profiles/theater0.json');
+            theater0.serverTime = serverTime;
+            theater0.profileChanges[0].profile.accountId = req.query.accountId;
+            theater0.profileChanges[0].profile.created = createdLastLogin.created;
+            theater0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(theater0);
+            break;
+        case 'outpost0':
+            let outpost0 = require('./profiles/outpost0.json');
+            outpost0.serverTime = serverTime;
+            outpost0.profileChanges[0].profile.accountId = req.query.accountId;
+            outpost0.profileChanges[0].profile.created = createdLastLogin.created;
+            outpost0.profileChanges[0].profile.updated = createdLastLogin.updated;
+            res.json(outpost0);
+            break;
         default:
             res.status(400).json({
                 success: false,

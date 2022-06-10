@@ -219,6 +219,21 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/friendcodes/:accountId/epic',
                 destination: '/api/fortnite/fortnite/api/game/v2/friendcodes/epic?accountId=:accountId',
+            },
+            // STW Refresh Expeditions
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/RefreshExpeditions',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/refreshExpeditions'
+            },
+            // STW Mark New Quest Notification As Sent
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/MarkNewQuestNotificationSent',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/markNewQuestNotificationSent?accountId=:accountId'
+            },
+            // STW Claim Login Reward
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/ClaimLoginReward',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/claimLoginReward?accountId=:accountId'
             }
         ];
     },
