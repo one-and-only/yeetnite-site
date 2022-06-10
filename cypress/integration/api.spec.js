@@ -345,4 +345,13 @@ describe('Test REST API', () => {
             expect(response.body.profileId).to.equal('campaign');
         });
     });
+    it('MarkNewQuestNotificationSent', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/MarkNewQuestNotificationSent?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    });
 });

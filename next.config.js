@@ -224,6 +224,11 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/profile/:accountId/client/RefreshExpeditions',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/refreshExpeditions'
+            },
+            // STW Mark New Quest Notification As Sent
+            {
+                source: '/fortnite/api/game/v2/profile/:accountId/client/MarkNewQuestNotificationSent',
+                destination: '/api/fortnite/fortnite/api/game/v2/profile/markNewQuestNotificationSent?accountId=:accountId'
             }
         ];
     },
