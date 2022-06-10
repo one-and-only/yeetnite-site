@@ -103,6 +103,14 @@ export default async function queryProfile(req, res) {
             campaign.profileCommandRevision = parseInt(req.query.rvn) - 10;
             res.json(campaign);
             break;
+        case 'metadata':
+            let metadata = require('./profiles/metadata.json');
+            metadata.serverTime = serverTime;
+            metadata.profileChanges[0].profile.accountId = req.query.accountId;
+            metadata.profileChanges[0].profile.created = createdLastLogin.created;
+            metadata.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            res.json(metadata);
+            break;
         default:
             res.status(400).json({
                 success: false,
