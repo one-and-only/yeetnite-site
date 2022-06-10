@@ -280,10 +280,21 @@ describe('Test REST API', () => {
             expect(response.body.profileChanges).to.deep.equal([]);
         });
     });
+
+    // TODO: Migrate to checking `response.body.profileId` to ensure it is the right profile
     it('Query Profile - collection_book_people0', () => {
         cy.request({
             method: 'POST',
             url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_people0&rvn=-1'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileChanges).to.not.be.empty;
+        });
+    });
+    it('Query Profile - collection_book_schematics0', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=collection_book_schematics0&rvn=-1' 
         }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body.profileChanges).to.not.be.empty;
