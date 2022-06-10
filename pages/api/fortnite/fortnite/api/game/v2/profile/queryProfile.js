@@ -95,6 +95,14 @@ export default async function queryProfile(req, res) {
             collection_book_schematics0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             res.json(collection_book_schematics0);
             break;
+        case 'campaign':
+            let campaign = require('./profiles/campaign.json');
+            campaign.serverTime = serverTime;
+            campaign.profileRevision = parseInt(req.query.rvn);
+            campaign.profileChangesBaseRevision = parseInt(req.query.rvn);
+            campaign.profileCommandRevision = parseInt(req.query.rvn) - 10;
+            res.json(campaign);
+            break;
         default:
             res.status(400).json({
                 success: false,

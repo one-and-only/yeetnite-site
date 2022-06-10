@@ -300,4 +300,13 @@ describe('Test REST API', () => {
             expect(response.body.profileChanges).to.not.be.empty;
         });
     });
+    it('Query Profile - campaign', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/QueryProfile?profileId=campaign&rvn=627'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('campaign');
+        });
+    });
 });
