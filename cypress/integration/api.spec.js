@@ -280,6 +280,15 @@ describe('Test REST API', () => {
             expect(response.body.profileChanges).to.deep.equal([]);
         });
     });
+    it('STW Refresh Expeditions (profile0)', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/profile/testUser/client/RefreshExpeditions?profileId=profile0&rvn=499'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.profileId).to.equal('profile0');
+        });
+    })
 
     // TODO: Migrate to checking `response.body.profileId` to ensure it is the right profile
     it('Query Profile - collection_book_people0', () => {
@@ -362,5 +371,5 @@ describe('Test REST API', () => {
             expect(response.status).to.equal(200);
             expect(response.body.profileId).to.equal('campaign');
         });
-    })
+    });
 });

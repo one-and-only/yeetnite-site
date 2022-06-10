@@ -22,6 +22,13 @@ export default async function refreshExpeditions(req, res) {
 
     const serverTime = new Date().toISOString();
     switch (req.query.profileId) {
+        case 'profile0':
+            let profile0 = require('./profiles/expeditions_profile0.json');
+            profile0.serverTime = serverTime;
+            profile0.profileRevision = parseInt(req.query.rvn);
+            profile0.profileChangesBaseRevision = parseInt(req.query.rvn);
+            res.json(profile0);
+            break;
         case 'campaign':
             switch (req.query.rvn) {
                 case "-1":
