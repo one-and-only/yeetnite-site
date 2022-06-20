@@ -1,4 +1,14 @@
 describe('Test REST API', () => {
+    it('Launcher Login', () => {
+        cy.request({
+            method: 'GET',
+            url: '/api/launcherLogin?username=testUser&password=Antonios12!'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.username).to.equal("testUser");
+            expect(response.body.accessToken).to.equal("1e6404c8c4f5130f");
+        });
+    });
     it('Generic EG1 OAuth Token', () => {
         cy.request({
             method: 'POST',
