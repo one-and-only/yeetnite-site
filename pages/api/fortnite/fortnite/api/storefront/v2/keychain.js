@@ -1,4 +1,4 @@
-const keychainResponse = require('./keychains/s6.json');
+const keychainResponse = require('./keychain.json');
 
 export default function keychain(req, res) {
     if (req.query.rvn) {
