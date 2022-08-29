@@ -28,7 +28,8 @@ export default async function processUserRequest(req, res) {
             data: {
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                created: new Date().toISOString(),
             }
         });
 
