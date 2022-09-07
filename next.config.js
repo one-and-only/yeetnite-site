@@ -244,7 +244,12 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/profile/:accountId/client/ClaimLoginReward',
                 destination: '/api/fortnite/fortnite/api/game/v2/profile/claimLoginReward?accountId=:accountId'
-            }
+            },
+            // Account Privacy
+            {
+                source: '/fortnite/api/game/v2/privacy/account/:accountId',
+                destination: '/api/fortnite/fortnite/api/game/v2/privacy/account?accountId=:accountId'
+            },
         ];
     },
     reactStrictMode: true,
