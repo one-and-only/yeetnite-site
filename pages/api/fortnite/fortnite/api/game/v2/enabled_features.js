@@ -1,3 +1,3 @@
-export default function enabledFeatures(rew, res) {
+export default function enabledFeatures(req, res) {
     res.json([]);
 }
