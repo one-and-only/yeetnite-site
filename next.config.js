@@ -74,6 +74,16 @@ module.exports = {
                 source: '/fortnite/api/cloudstorage/system/DefaultEngine.ini',
                 destination: '/FNConfigs/DefaultEngine.ini'
             },
+            // Cloudstorage (System) DefaultGame.ini
+            {
+                source: '/fortnite/api/cloudstorage/system/DefaultGame.ini',
+                destination: '/FNConfigs/DefaultGame.ini'
+            },
+            // Cloudstorage (System) DefaultRuntimeOptions.ini
+            {
+                source: '/fortnite/api/cloudstorage/system/DefaultRuntimeOptions.ini',
+                destination: '/FNConfigs/DefaultRuntimeOptions.ini'
+            },
             // Cloudstorage (User) Get ClientSettings.Sav File Attributes For Username
             {
                 source: '/fortnite/api/cloudstorage/user/:accountId',
