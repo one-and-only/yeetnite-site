@@ -382,4 +382,14 @@ describe('Test REST API', () => {
             expect(response.body.profileId).to.equal('campaign');
         });
     });
+    it('Privacy', () => {
+        cy.request({
+            method: 'POST',
+            url: '/fortnite/api/game/v2/privacy/account/testUser'
+        }).then(response => {
+            expect(response.status).to.equal(200);
+            expect(response.body.accountId).to.equal('testUser');
+            expect(response.body.optOutOfPublicLeaderboards).to.equal(false);
+        });
+    })
 });
