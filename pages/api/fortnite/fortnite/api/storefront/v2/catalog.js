@@ -1,5 +1,9 @@
 import storefrontCatalog from './catalog.json';
 
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function catalog(req, res) {
     if (req.query.rvn) {
         res.json(storefrontCatalog);

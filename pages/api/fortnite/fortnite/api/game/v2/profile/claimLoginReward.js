@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function claimLoginReward(req, res) {
     const serverTime = new Date().toISOString();
     res.json({

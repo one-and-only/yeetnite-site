@@ -1,5 +1,9 @@
 import keychainResponse from './keychain.json';
 
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function keychain(req, res) {
     if (req.query.rvn) {
         res.json(keychainResponse);

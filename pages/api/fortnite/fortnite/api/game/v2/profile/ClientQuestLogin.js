@@ -1,5 +1,9 @@
 import campaign from './profiles/campaign.json';
 
+export const config = {
+    runtime: 'experimental-edge',
+  }
+
 export default function clientQuestLogin(req, res) {
     if (req.query.accountId && req.query.profileId && req.query.rvn) {
         switch (req.query.profileId) {

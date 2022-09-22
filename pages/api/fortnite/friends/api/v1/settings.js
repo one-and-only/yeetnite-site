@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function settings(req, res) {
     if (req.query.accountId) {
         res.json([]);

@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function tryPlayOnPlatform(req, res) {
     if (req.query.platform === 'PC') {
         res.send('true');
