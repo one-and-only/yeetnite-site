@@ -1,4 +1,4 @@
-const keychainResponse = require('./keychain.json');
+import keychainResponse from './keychain.json';
 
 export default function keychain(req, res) {
     if (req.query.rvn) {

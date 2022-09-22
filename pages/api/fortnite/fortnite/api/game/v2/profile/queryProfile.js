@@ -25,13 +25,45 @@ export default async function queryProfile(req, res) {
     const createdLastLogin = await getCreatedLastLogin(req.query.accountId);
     switch (req.query.profileId) {
         case 'athena':
-            let athena = require('./profiles/athena.json');
-            const lockerData = (await prisma.$queryRaw`SELECT locker.favorite_victorypose, locker.favorite_consumableemote, locker.banner_color, locker.favorite_callingcard, locker.favorite_character, locker.favorite_spray, locker.favorite_loadingscreen, locker.favorite_hat, locker.favorite_battlebus, locker.favorite_mapmarker, locker.favorite_vehicledeco, locker.favorite_backpack, locker.favorite_dance, locker.favorite_skydivecontrail, locker.favorite_pickaxe, locker.favorite_glider, locker.favorite_musicpack, locker.favorite_itemwraps, locker.banner_icon FROM locker INNER JOIN users ON users.user_id = locker.user_id WHERE users.username = ${req.query.accountId}`)[0];
+            let athena = await import('./profiles/athena.json');
+            const userInfo = await prisma.users.findFirst({
+                select: {
+                    user_id: true
+                },
+                where: {
+                    username: req.query.accountId
+                }
+            });
+            const lockerData = await prisma.locker.findFirst({
+                select: {
+                    favorite_victorypose: true,
+                    favorite_consumableemote: true,
+                    banner_color: true,
+                    favorite_callingcard: true,
+                    favorite_character: true,
+                    favorite_spray: true,
+                    favorite_loadingscreen: true,
+                    favorite_hat: true,
+                    favorite_battlebus: true,
+                    favorite_mapmarker: true,
+                    favorite_vehicledeco: true,
+                    favorite_backpack: true,
+                    favorite_dance: true,
+                    favorite_skydivecontrail: true,
+                    favorite_pickaxe: true,
+                    favorite_glider: true,
+                    favorite_musicpack: true,
+                    favorite_itemwraps: true,
+                    banner_icon: true
+                },
+                where: {
+                    user_id: userInfo.user_id
+                }
+            });
             // Change some profile time data to be dynamic per user
             athena.profileChanges[0].profile.created = createdLastLogin.created;
             athena.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             athena.profileChanges[0].profile.accountId = req.query.accountId;
-            athena.serverTime = serverTime;
             // custom locker items
             athena.profileChanges[0].profile.stats.attributes.favorite_victorypose = lockerData.favorite_victorypose;
             athena.profileChanges[0].profile.stats.attributes.favorite_consumableemote = lockerData.favorite_consumableemote;
@@ -52,79 +84,80 @@ export default async function queryProfile(req, res) {
             athena.profileChanges[0].profile.stats.attributes.favorite_musicpack = lockerData.favorite_musicpack;
             athena.profileChanges[0].profile.stats.attributes.favorite_itemwraps = JSON.parse(lockerData.favorite_itemwraps);
             athena.profileChanges[0].profile.stats.attributes.banner_icon = lockerData.banner_icon;
+            athena.default.serverTime = serverTime;
             res.json(athena);
             break;
         case 'common_core':
-            let common_core = require('./profiles/common_core.json');
+            let common_core = await import('./profiles/common_core.json');
             common_core.profileChanges[0].profile.created = createdLastLogin.created;
             common_core.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             common_core.profileChanges[0].profile.accountId = req.query.accountId;
-            common_core.serverTime = serverTime;
+            common_core.default.serverTime = serverTime;
             res.json(common_core);
             break;
         case 'common_public':
-            let common_public = require('./profiles/common_public.json');
+            let common_public = await import('./profiles/common_public.json');
             common_public.profileChanges[0].profile.created = createdLastLogin.created;
             common_public.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             common_public.profileChanges[0].profile.accountId = req.query.accountId;
             common_public.profileChanges[0].profile.stats.attributes.homebase_name = req.query.accountId;
-            common_public.serverTime = serverTime;
+            common_public.default.serverTime = serverTime;
             res.json(common_public);
             break;
         case 'profile0':
-            let profile0 = require('./profiles/profile0.json');
+            let profile0 = await import('./profiles/profile0.json');
             profile0.profileChanges[0].profile.created = createdLastLogin.created;
             profile0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             profile0.profileChanges[0].profile.accountId = req.query.accountId;
-            profile0.serverTime = serverTime;
+            profile0.default.serverTime = serverTime;
             res.json(profile0);
             break;
         case 'collection_book_people0':
-            let collection_book_people0 = require('./profiles/collection_book_people0.json');
-            collection_book_people0.serverTime = serverTime;
+            let collection_book_people0 = await import('./profiles/collection_book_people0.json');
             collection_book_people0.profileChanges[0].profile.accountId = req.query.accountId;
             collection_book_people0.profileChanges[0].profile.created = createdLastLogin.created;
             collection_book_people0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            collection_book_people0.default.serverTime = serverTime;
             res.json(collection_book_people0);
             break;
         case 'collection_book_schematics0':
-            let collection_book_schematics0 = require('./profiles/collection_book_schematics0.json');
-            collection_book_schematics0.serverTime = serverTime;
+            let collection_book_schematics0 = await import('./profiles/collection_book_schematics0.json');
             collection_book_schematics0.profileChanges[0].profile.accountId = req.query.accountId;
             collection_book_schematics0.profileChanges[0].profile.created = createdLastLogin.created;
             collection_book_schematics0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            collection_book_schematics0.default.serverTime = serverTime;
             res.json(collection_book_schematics0);
             break;
         case 'campaign':
-            let campaign = require('./profiles/campaign.json');
-            campaign.serverTime = serverTime;
-            campaign.profileRevision = parseInt(req.query.rvn);
-            campaign.profileChangesBaseRevision = parseInt(req.query.rvn);
-            campaign.profileCommandRevision = parseInt(req.query.rvn) - 10;
+            let campaign = await import('./profiles/campaign.json');
+            campaign.default.profileRevision = parseInt(req.query.rvn);
+            campaign.default.profileChangesBaseRevision = parseInt(req.query.rvn);
+            campaign.default.profileCommandRevision = parseInt(req.query.rvn) - 10;
+            campaign.default.serverTime = serverTime;
             res.json(campaign);
             break;
         case 'metadata':
-            let metadata = require('./profiles/metadata.json');
-            metadata.serverTime = serverTime;
+            let metadata = await import('./profiles/metadata.json');
             metadata.profileChanges[0].profile.accountId = req.query.accountId;
             metadata.profileChanges[0].profile.created = createdLastLogin.created;
             metadata.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            metadata.default.serverTime = serverTime;
             res.json(metadata);
             break;
         case 'theater0':
-            let theater0 = require('./profiles/theater0.json');
-            theater0.serverTime = serverTime;
+            let theater0 = await import('./profiles/theater0.json');
             theater0.profileChanges[0].profile.accountId = req.query.accountId;
             theater0.profileChanges[0].profile.created = createdLastLogin.created;
             theater0.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
+            theater0.default.serverTime = serverTime;
             res.json(theater0);
             break;
         case 'outpost0':
-            let outpost0 = require('./profiles/outpost0.json');
-            outpost0.serverTime = serverTime;
+            let outpost0 = await import('./profiles/outpost0.json');
             outpost0.profileChanges[0].profile.accountId = req.query.accountId;
             outpost0.profileChanges[0].profile.created = createdLastLogin.created;
             outpost0.profileChanges[0].profile.updated = createdLastLogin.updated;
+            outpost0.default.serverTime = serverTime;
             res.json(outpost0);
             break;
         default:
