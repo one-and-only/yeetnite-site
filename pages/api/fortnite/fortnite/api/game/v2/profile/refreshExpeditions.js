@@ -23,21 +23,21 @@ export default async function refreshExpeditions(req, res) {
     const serverTime = new Date().toISOString();
     switch (req.query.profileId) {
         case 'profile0':
-            let profile0 = require('./profiles/expeditions_profile0.json');
-            profile0.serverTime = serverTime;
-            profile0.profileRevision = parseInt(req.query.rvn);
-            profile0.profileChangesBaseRevision = parseInt(req.query.rvn);
+            let profile0 = await import('./profiles/expeditions_profile0.json');
+            profile0.default.serverTime = serverTime;
+            profile0.default.profileRevision = parseInt(req.query.rvn);
+            profile0.default.profileChangesBaseRevision = parseInt(req.query.rvn);
             res.json(profile0);
             break;
         case 'campaign':
             switch (req.query.rvn) {
                 case "-1":
-                    let campaign = require('./profiles/expeditions_campaign.json');
+                    let campaign = await import('./profiles/expeditions_campaign.json');
 
                     campaign.profileChanges[0].profile.accountId = req.query.accountId;
                     campaign.profileChanges[0].profile.created = await getCreated(req.query.accountId);
                     campaign.profileChanges[0].profile.updated = serverTime;
-                    campaign.serverTime = serverTime;
+                    campaign.default.serverTime = serverTime;
 
                     res.json(campaign);
                     break;

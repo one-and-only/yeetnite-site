@@ -10,8 +10,23 @@ export default async function setBattleRoyaleBanner(req, res) {
     }
 
     // save the banner update
-    await prisma.$queryRaw`UPDATE locker SET banner_icon = ${req.body.homebaseBannerIconId} WHERE user_id IN (SELECT user_id FROM users WHERE username = ${req.query.accountId})`;
-    await prisma.$queryRaw`UPDATE locker SET banner_color = ${req.body.homebaseBannerColorId} WHERE user_id IN (SELECT user_id FROM users WHERE username = ${req.query.accountId})`;
+    const user_id = (await prisma.users.findFirst({
+        select: {
+            user_id: first
+        },
+        where: {
+            username: req.query.accountId
+        }
+    })).user_id;
+    await prisma.locker.update({
+        data: {
+            banner_icon: req.body.homebaseBannerIconId,
+            banner_color: req.body.homebaseBannerColorId,
+        },
+        where: {
+            user_id: user_id
+        }
+    });
 
     res.json({
         "profileRevision": parseInt(req.query.rvn) + 1,

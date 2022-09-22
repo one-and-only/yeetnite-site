@@ -50,12 +50,27 @@ export default async function clientSettingsSav(req, res) {
                     limit: '16mb',
                 }, async function (err, buffer) {
                     if (err) console.log("error:", err);
-                    await prisma.$queryRaw`UPDATE users SET clientSettings = ${deflateSync(buffer.toString('base64')).toString('base64')}, clientSettingsLastUpdated = ${new Date().toISOString()} WHERE username = ${req.query.accountId}`;
+                    await prisma.users.update({
+                        data: {
+                            clientSettings: deflateSync(buffer.toString('base64')).toString('base64'),
+                            clientSettingsLastUpdated: new Date().toISOString()
+                        },
+                        where: {
+                            username: req.query.accountId
+                        }
+                    });
                     res.status(204).send();
                 });
                 break;
             case "GET":
-                const clientSettingsSav = (await prisma.$queryRaw`SELECT clientSettings FROM users WHERE username = ${req.query.accountId}`)[0];
+                const clientSettingsSav = await prisma.users.findFirst({
+                    select: {
+                        clientSettings: true
+                    },
+                    where: {
+                        username: req.query.accountId
+                    }
+                });
                 if (!clientSettingsSav.clientSettings) {
                     res.status(204).send();
                     return;

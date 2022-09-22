@@ -1,5 +1,6 @@
+import campaign from './profiles/campaign.json';
+
 export default function markNewQuestNotificationSent(req, res) {
-    let campaign = require('./profiles/campaign.json');
     campaign.serverTime = new Date().toISOString();
     campaign.profileRevision = parseInt(req.query.rvn);
     campaign.profileChangesBaseRevision = parseInt(req.query.rvn);
