@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function incrementNamedCounterStat(req, res) {
     const serverTime = new Date().toISOString();
     switch (req.query.profileId) {

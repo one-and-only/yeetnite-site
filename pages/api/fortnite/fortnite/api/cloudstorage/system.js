@@ -1,5 +1,11 @@
-export default function system(req, res) {
-    res.json([
+import edgeResponse from '@lib/edgeResponse';
+
+export const config = {
+    runtime: 'experimental-edge',
+}
+
+export default function system() {
+    return edgeResponse([
         {
             "uniqueFilename": "DefaultEngine.ini",
             "filename": "DefaultEngine.ini",

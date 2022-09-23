@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'experimental-edge',
+}
+
 export default function verify(req, res) {
     res.json({
         access_token: req.headers.authorization.slice(7),
