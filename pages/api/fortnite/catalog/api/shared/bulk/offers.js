@@ -1,8 +1,9 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function offers(req, res) {
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    res.json({});
+export default function offers() {
+    return edgeResponse({});
 }

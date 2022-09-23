@@ -1,38 +1,36 @@
 import campaign from './profiles/campaign.json';
+import edgeResponse from '@lib/edgeResponse';
 
 export const config = {
     runtime: 'experimental-edge',
-  }
+}
 
-export default function clientQuestLogin(req, res) {
-    if (req.query.accountId && req.query.profileId && req.query.rvn) {
-        switch (req.query.profileId) {
+export default function clientQuestLogin(req) {
+    const { searchParams } = new URL(req.url);
+
+    if (searchParams.get("accountId") && searchParams.get("profileId") && searchParams.get("rvn")) {
+        switch (searchParams.get("profileId")) {
             case 'athena':
-                res.json(
-                    {
-                        "accountId": req.query.accountId,
-                        "displayName": req.query.accountId
-                    }
-                );
-                break;
+                return edgeResponse({
+                    "accountId": searchParams.get("accountId"),
+                    "displayName": searchParams.get("accountId")
+                });
             case 'campaign':
                 campaign.serverTime = new Date().toISOString();
-                campaign.profileRevision = parseInt(req.query.rvn);
-                campaign.profileChangesBaseRevision = parseInt(req.query.rvn);
-                campaign.profileCommandRevision = parseInt(req.query.rvn) - 10;
-                res.json(campaign);
-                break;
+                campaign.profileRevision = parseInt(searchParams.get("rvn"));
+                campaign.profileChangesBaseRevision = parseInt(searchParams.get("rvn"));
+                campaign.profileCommandRevision = parseInt(searchParams.get("rvn")) - 10;
+                return edgeResponse(campaign);
             default:
-                res.json({
+                return edgeResponse({
                     success: false,
-                    reason: `invalid \`profileId\` of \`${req.query.profileId}\``
-                });
-                break;
+                    reason: `invalid \`profileId\` of \`${searchParams.get("profileId")}\``
+                }, 400);
         }
     } else {
-        res.json({
+        return edgeResponse({
             status: "error",
             reason: "We have received invalid data and are unable to process your request."
-        });
+        }, 400);
     }
 }

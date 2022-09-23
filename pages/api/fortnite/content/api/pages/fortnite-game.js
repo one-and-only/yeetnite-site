@@ -1,10 +1,10 @@
 import content from './content.json';
+import edgeResponse from '@lib/edgeResponse';
 
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function fortniteContent(req, res) {
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    res.json(content);
+export default function fortniteContent() {
+    return edgeResponse(content);
 }

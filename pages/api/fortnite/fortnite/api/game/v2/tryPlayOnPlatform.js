@@ -1,12 +1,9 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function tryPlayOnPlatform(req, res) {
-    if (req.query.platform === 'PC') {
-        res.send('true');
-    } else {
-        // no official support for clients on other platforms except PC (Win7, 10, etc)
-        res.send('false');
-    }
+export default function tryPlayOnPlatform() {
+    return edgeResponse('true', 200, { 'content-type': 'text/plain' });
 }

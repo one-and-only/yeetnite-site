@@ -1,9 +1,11 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function status(req, res) {
-    res.json([
+export default function status() {
+    return edgeResponse([
         {
             "serviceInstanceId": "fortnite",
             "status": "UP",

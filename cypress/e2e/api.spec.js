@@ -144,22 +144,13 @@ describe('Test REST API', () => {
             expect(response.body).to.not.be.empty;
         });
     });
-    it('Try Play On Platform - Compatible', () => {
+    it('Try Play On Platform', () => {
         cy.request({
             method: 'POST',
             url: '/fortnite/api/game/v2/tryPlayOnPlatform/account/testUser?platform=PC',
         }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body).to.equal('true');
-        });
-    });
-    it('Try Play On Platform - Incompatible', () => {
-        cy.request({
-            method: 'POST',
-            url: '/fortnite/api/game/v2/tryPlayOnPlatform/account/testUser?platform=Mac',
-        }).then(response => {
-            expect(response.status).to.equal(200);
-            expect(response.body).to.equal('false');
         });
     });
     it('Enabled Features', () => {

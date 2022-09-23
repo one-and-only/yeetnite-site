@@ -1,13 +1,17 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function claimLoginReward(req, res) {
+export default function claimLoginReward(req) {
+    const { searchParams } = new URL(req.url);
     const serverTime = new Date().toISOString();
-    res.json({
-        "profileRevision": parseInt(req.query.rvn) + 1,
+
+    return edgeResponse({
+        "profileRevision": parseInt(searchParams.rvn) + 1,
         "profileId": "campaign",
-        "profileChangesBaseRevision": parseInt(req.query.rvn),
+        "profileChangesBaseRevision": parseInt(searchParams.rvn),
         "profileChanges": [
             {
                 "changeType": "statModified",
@@ -27,7 +31,7 @@ export default function claimLoginReward(req, res) {
                 }
             }
         ],
-        "profileCommandRevision": parseInt(req.query.rvn) + 1 - 10,
+        "profileCommandRevision": parseInt(searchParams.rvn) + 1 - 10,
         "serverTime": serverTime,
         "responseVersion": 1
     });
