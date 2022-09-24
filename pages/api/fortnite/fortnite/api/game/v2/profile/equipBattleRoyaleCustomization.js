@@ -17,7 +17,7 @@ export default async function equipBattleRoyaleCustomization(req, res) {
     if (req.body.slotName == "Dance") {
         const user_id = (await prisma.users.findFirst({
             select: {
-                user_id: first
+                user_id: true
             },
             where: {
                 username: req.query.accountId
