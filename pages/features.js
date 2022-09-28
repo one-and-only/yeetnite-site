@@ -24,17 +24,17 @@ export default function Features() {
                <li>Login + Fortnite Lobby</li>
                <li>Emotes</li>
                <li>Locker Customization</li>
-               <li>XMPP (Friend Requests + Block/Unblock Users, Partying, Whisper, Live Presence Updates)</li>
+               <li>XMPP (Friend Requests + Block/Unblock Users, Partying, Whisper, Live Presence Updates, etc.)</li>
                <li>Persistent Per-Player Saves</li>
                <li>Save The World Lobby</li>
             </ul>
             <br />
-            <h2 id="unsupported-features">Unsupported Features / Known Limitations</h2>
+            <h2 id="unsupported-features">Caveats</h2>
             <hr width="40%" />
             <ul>
-               <li>Party Chat Messages Get Sent 4 Times For Some Reason</li>
-               <li>Matchmaking + Matches (Planned for Future)</li>
-               <li>Friend Requests Require a Restart To Appear</li>
+               <li>XMPP Messages Show Up 4 Times</li>
+               <li>No Multiplayer (Planned for Future)</li>
+               <li>Friend Requests Require a Client Restart To Appear</li>
             </ul>
          </div>
       </div>
