@@ -1,5 +1,4 @@
 import { prisma } from '@lib/prisma';
-import { } from 'dotenv/config';
 
 async function findExistingFriendRequest(accountId1, accountId2) {
     return await prisma.friendRequests.findFirst({

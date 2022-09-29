@@ -1,6 +1,5 @@
 import { randomBytes } from 'crypto';
 import { prisma } from '@lib/prisma';
-import { } from 'dotenv/config';
 
 export default async function processUserRequest(req, res) {
     if (req.method === "POST") {
