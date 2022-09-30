@@ -24,13 +24,36 @@ export default async function friends(req, res) {
 
         if (!pendingFriendRequest) {
             // send an outgoing friend request because one doesn't exist
+            const created = new Date().toISOString();
             await prisma.friendRequests.create({
                 data: {
                     ownerAccountId: req.query.accountId1,
                     accountId: req.query.accountId2,
-                    created: new Date().toISOString()
+                    created: created
                 }
             });
+
+            // notify receiving XMPP client there is a pending friend request
+            await fetch(`https://xmpp.yeetnite.ml:1443/rest/stream/${req.query.accountId2}%40xmpp.yeetnite.ml?api-key=${process.env.TIGASE_API_KEY}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/xml",
+                    "Authorization": process.env.TIGASE_HTTP_AUTHORIZATION
+                },
+                body: `
+<message from="${req.query.accountId1}@xmpp.yeetnite.ml" xmlns="jabber:client">
+    <body>
+        ${JSON.stringify({
+                    type: "FRIENDSHIP_REQUEST",
+                    timestamp: created,
+                    from: req.query.accountId1,
+                    status: "PENDING"
+                })}
+    </body>
+</message>
+                `
+            });
+
             res.status(204).send();
             return;
         } else if (pendingFriendRequest.ownerAccountId === req.query.accountId1) {
@@ -77,6 +100,28 @@ export default async function friends(req, res) {
                     }
                 })
             });
+
+        // notify friend request initiator that the request has been accepted
+        await fetch(`https://xmpp.yeetnite.ml:1443/rest/stream/${req.query.accountId1}%40xmpp.yeetnite.ml?api-key=${process.env.TIGASE_API_KEY}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/xml",
+                "Authorization": process.env.TIGASE_HTTP_AUTHORIZATION
+            },
+            body: `
+<message from="${req.query.accountId2}@xmpp.yeetnite.ml" xmlns="jabber:client">
+<body>
+    ${JSON.stringify({
+                type: "FRIENDSHIP_REQUEST",
+                timestamp: new Date().toISOString(),
+                from: req.query.accountId2,
+                status: "ACCEPTED"
+            })}
+</body>
+</message>
+            `
+        });
+
         res.status(204).send();
     } else if (req.method === "DELETE") {
         await prisma.friendRequests.delete({
