@@ -32,7 +32,6 @@ export default function Features() {
             <h2 id="unsupported-features">Caveats</h2>
             <hr width="40%" />
             <ul>
-               <li>XMPP Messages Show Up 4 Times</li>
                <li>No Multiplayer (Planned for Future)</li>
                <li>Friend Requests Require a Client Restart To Appear</li>
             </ul>
