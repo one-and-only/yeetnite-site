@@ -1,4 +1,5 @@
 import { prisma } from '@lib/prisma';
+import { getFortniteVersion } from '@lib/seasonUtils';
 
 async function getCreatedLastLogin(username) {
     return await prisma.users.findFirst({
@@ -64,6 +65,7 @@ export default async function queryProfile(req, res) {
             athena.profileChanges[0].profile.created = createdLastLogin.created;
             athena.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             athena.profileChanges[0].profile.accountId = req.query.accountId;
+            athena.profileChanges[0].profile.stats.attributes.season_num = getFortniteVersion(req.headers["user-agent"]).season;
             // custom locker items
             athena.profileChanges[0].profile.stats.attributes.favorite_victorypose = lockerData.favorite_victorypose;
             athena.profileChanges[0].profile.stats.attributes.favorite_consumableemote = lockerData.favorite_consumableemote;
