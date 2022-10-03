@@ -1,7 +1,9 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
 export default function ssoDomains(req, res) {
-    res.json({});
+    return edgeResponse({});
 }

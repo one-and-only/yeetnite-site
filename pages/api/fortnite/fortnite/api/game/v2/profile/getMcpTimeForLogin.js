@@ -1,26 +1,28 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function getMcpTimeForLogin(req, res) {
+export default function getMcpTimeForLogin(req) {
     const serverTime = new Date().toISOString();
-    switch (req.query.profileId) {
+    const { searchParams } = new URL(req.url);
+
+    switch (searchParams.get("profileId")) {
         case 'profile0':
-            res.json({
-                "profileRevision": req.query.rvn,
+            return edgeResponse({
+                "profileRevision": searchParams.get("rvn"),
                 "profileId": "profile0",
-                "profileChangesBaseRevision": req.query.rvn,
+                "profileChangesBaseRevision": searchParams.get("rvn"),
                 "profileChanges": [],
-                "profileCommandRevision": 281,
+                "profileCommandRevision": 0,
                 "serverTime": serverTime,
                 "responseVersion": 1
             });
-            break;
         default:
-            res.status(400).json({
+            return edgeResponse({
                 success: false,
-                reason: `Invalid \`profileId\` of \`${req.query.profileId}\``,
-            });
-            break;
+                reason: `Invalid \`profileId\` of \`${searchParams.get("profileId")}\``,
+            }, 400);
     }
 }

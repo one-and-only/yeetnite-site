@@ -1,13 +1,17 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
 export default function incrementNamedCounterStat(req, res) {
     const serverTime = new Date().toISOString();
-    switch (req.query.profileId) {
+    const { searchParams } = new URL(req.url);
+
+    switch (searchParams.get("profileId")) {
         case 'profile0':
-            res.json({
-                "profileRevision": req.query.rvn,
+            return edgeResponse({
+                "profileRevision": searchParams.get("rvn"),
                 "profileId": "profile0",
                 "profileChangesBaseRevision": 498,
                 "profileChanges": [],
@@ -19,7 +23,7 @@ export default function incrementNamedCounterStat(req, res) {
         default:
             res.status(400).json({
                 success: false,
-                reason: `Invalid \`profile\` of \`${req.query.profile}\``
+                reason: `Invalid \`profile\` of \`${searchParams.get("profile")}\``
             });
     }
 }

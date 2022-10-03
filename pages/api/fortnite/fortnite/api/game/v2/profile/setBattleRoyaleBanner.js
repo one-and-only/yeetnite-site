@@ -12,7 +12,7 @@ export default async function setBattleRoyaleBanner(req, res) {
     // save the banner update
     const user_id = (await prisma.users.findFirst({
         select: {
-            user_id: first
+            user_id: true
         },
         where: {
             username: req.query.accountId

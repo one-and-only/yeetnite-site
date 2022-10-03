@@ -31,7 +31,6 @@ export default async function blockList(req, res) {
                 blockList.push(req.query.blocking);
                 await updateBlocklist(blockList, req.query.accountId);
                 // unfriend the user if they're being blocked
-                // await prisma.$queryRaw`DELETE FROM friendRequests WHERE (ownerAccountId = ${req.query.accountId} AND accountId = ${req.query.blocking}) OR (ownerAccountId = ${req.query.blocking} AND accountId = ${req.query.accountId})`;
                 await prisma.friendRequests.deleteMany({
                     where: {
                         OR: [

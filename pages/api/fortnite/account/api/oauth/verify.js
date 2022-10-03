@@ -1,10 +1,12 @@
+import edgeResponse from '@lib/edgeResponse';
+
 export const config = {
     runtime: 'experimental-edge',
 }
 
-export default function verify(req, res) {
-    res.json({
-        access_token: req.headers.authorization.slice(7),
+export default function verify(req) {
+    return edgeResponse({
+        access_token: req.headers.get('authorization').slice(7),
         "client_id": "yeetniteclientlol",
         "client_service": "fortnite",
         "expires_at": "9999-12-02T01:12:00Z",
