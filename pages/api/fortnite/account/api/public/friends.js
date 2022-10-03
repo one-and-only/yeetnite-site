@@ -54,6 +54,27 @@ export default async function friends(req, res) {
                 `
             });
 
+            await fetch(`https://xmpp.yeetnite.ml:1443/rest/stream/${req.query.accountId2}%40xmpp.yeetnite.ml?api-key=${process.env.TIGASE_API_KEY}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/xml",
+                    "Authorization": process.env.TIGASE_HTTP_AUTHORIZATION
+                },
+                body: `
+<message from="${req.query.accountId1}@xmpp.yeetnite.ml" xmlns="jabber:client">
+    <body>
+        ${JSON.stringify({
+                    accountId: req.query.accountId1,
+                    status: "PENDING",
+                    direction: "INBOUND",
+                    created: created,
+                    favorite: false
+                })}
+    </body>
+</message>
+                `
+            });
+
             res.status(204).send();
             return;
         } else if (pendingFriendRequest.ownerAccountId === req.query.accountId1) {
