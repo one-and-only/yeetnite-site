@@ -42202,7 +42202,7 @@
                 "stats": {
                     "attributes": {
                         "past_seasons": [],
-                        "season_match_boost": 999999999,
+                        "season_match_boost": 120,
                         "loadouts": [
                             "ettrr4h-2wedfgbn-8i9jsghj-lpw9t2to-loadout1"
                         ],
@@ -42212,8 +42212,8 @@
                             "dailyLoginInterval": "2020-01-01T17:22:28.023Z",
                             "dailyQuestRerolls": 1
                         },
-                        "book_level": 1000,
-                        "season_num": 6,
+                        "book_level": 100,
+                        "season_num": -1,
                         "favorite_consumableemote": "",
                         "banner_color": "",
                         "favorite_callingcard": "",
@@ -42222,13 +42222,13 @@
                         "book_xp": 100,
                         "favorite_loadingscreen": "",
                         "book_purchased": true,
-                        "lifetime_wins": 100,
+                        "lifetime_wins": 0,
                         "favorite_hat": "",
-                        "level": 1000,
+                        "level": 100,
                         "favorite_battlebus": "",
                         "favorite_mapmarker": "",
                         "favorite_vehicledeco": "",
-                        "accountLevel": 1000,
+                        "accountLevel": 100,
                         "favorite_backpack": "",
                         "favorite_dance": [
                             "",
@@ -42245,7 +42245,7 @@
                         "favorite_glider": "",
                         "daily_rewards": {},
                         "xp": 500,
-                        "season_friend_match_boost": 999999999,
+                        "season_friend_match_boost": 120,
                         "active_loadout_index": 0,
                         "favorite_musicpack": "",
                         "banner_icon": "",
