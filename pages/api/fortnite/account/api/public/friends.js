@@ -64,11 +64,15 @@ export default async function friends(req, res) {
 <message from="${req.query.accountId1}@xmpp.yeetnite.ml" xmlns="jabber:client">
     <body>
         ${JSON.stringify({
-                    accountId: req.query.accountId1,
-                    status: "PENDING",
-                    direction: "INBOUND",
-                    created: created,
-                    favorite: false
+                    payload: {
+                        accountId: req.query.accountId1,
+                        status: "PENDING",
+                        direction: "INBOUND",
+                        created: created,
+                        favorite: false
+                    },
+                    type: "com.epicgames.friends.core.apiobjects.Friend",
+                    timestamp: created
                 })}
     </body>
 </message>
@@ -155,11 +159,15 @@ export default async function friends(req, res) {
 <message from="${req.query.accountId2}@xmpp.yeetnite.ml" xmlns="jabber:client">
 <body>
     ${JSON.stringify({
-                accountId: req.query.accountId1,
-                status: "ACCEPTED",
-                direction: "OUTBOUND",
-                created: created,
-                favorite: false
+                payload: {
+                    accountId: req.query.accountId1,
+                    status: "ACCEPTED",
+                    direction: "OUTBOUND",
+                    created: created,
+                    favorite: false
+                },
+                type: "com.epicgames.friends.core.apiobjects.Friend",
+                timestamp: created
             })}
 </body>
 </message>
