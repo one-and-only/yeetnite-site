@@ -122,6 +122,8 @@ export default async function friends(req, res) {
                 })
             });
 
+        const created = new Date().toISOString();
+
         // notify friend request initiator that the request has been accepted
         await fetch(`https://xmpp.yeetnite.ml:1443/rest/stream/${req.query.accountId1}%40xmpp.yeetnite.ml?api-key=${process.env.TIGASE_API_KEY}`, {
             method: "POST",
@@ -134,9 +136,30 @@ export default async function friends(req, res) {
 <body>
     ${JSON.stringify({
                 type: "FRIENDSHIP_REQUEST",
-                timestamp: new Date().toISOString(),
+                timestamp: created,
                 from: req.query.accountId2,
                 status: "ACCEPTED"
+            })}
+</body>
+</message>
+            `
+        });
+
+        await fetch(`https://xmpp.yeetnite.ml:1443/rest/stream/${req.query.accountId1}%40xmpp.yeetnite.ml?api-key=${process.env.TIGASE_API_KEY}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/xml",
+                "Authorization": process.env.TIGASE_HTTP_AUTHORIZATION
+            },
+            body: `
+<message from="${req.query.accountId2}@xmpp.yeetnite.ml" xmlns="jabber:client">
+<body>
+    ${JSON.stringify({
+                accountId: req.query.accountId1,
+                status: "ACCEPTED",
+                direction: "OUTBOUND",
+                created: created,
+                favorite: false
             })}
 </body>
 </message>
