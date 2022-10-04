@@ -5,5 +5,5 @@ export const config = {
 }
 
 export default function findPlayer(req, res) {
-    return edgeResponse(null, 204, {});
+    return edgeResponse(null, 200, {});
 }
