@@ -261,6 +261,11 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId',
                 destination: '/api/fortnite/fortnite/api/game/v2/matchmaking/account/session?accountId=:accountId&sessionId=:sessionId'
+            },
+            // MP Full Session Info
+            {
+                source: '/fortnite/api/matchmaking/session/:sessionId',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session?sessionId=:sessionId'
             }
         ];
     },
