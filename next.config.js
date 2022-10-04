@@ -215,7 +215,7 @@ module.exports = {
             // Find Player (Matchmaking)
             {
                 source: '/fortnite/api/matchmaking/session/findPlayer/:accountId',
-                destination: '/api/fortnite/fortnite/api/matchmaking/session/findPlayer?accountId=:accountId',
+                destination: '/api/fortnite/fortnite/api/matchmaking/findPlayer?accountId=:accountId',
             },
             // GetMcpTimeForLogin
             {
