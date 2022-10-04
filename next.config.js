@@ -256,6 +256,11 @@ module.exports = {
             {
                 source: '/fortnite/api/game/v2/matchmakingservice/ticket/player/:accountId',
                 destination: '/api/fortnite/fortnite/api/game/v2/matchmakingservice/ticket/player?accountId=:accountId'
+            },
+            // MP Matchmaking Session
+            {
+                source: '/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId',
+                destination: '/api/fortnite/fortnite/api/game/v2/matchmaking/account/session?accountId=:accountId&sessionId=:sessionId'
             }
         ];
     },
