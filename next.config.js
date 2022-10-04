@@ -252,6 +252,11 @@ module.exports = {
                 source: '/fortnite/api/game/v2/privacy/account/:accountId',
                 destination: '/api/fortnite/fortnite/api/game/v2/privacy/account?accountId=:accountId'
             },
+            // MP Matchmaking Request
+            {
+                source: '/fortnite/api/matchmaking/session/matchMakingRequest',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session/matchMakingRequest'
+            },
             // MP Matchmaking Ticket
             {
                 source: '/fortnite/api/game/v2/matchmakingservice/ticket/player/:accountId',
@@ -266,6 +271,11 @@ module.exports = {
             {
                 source: '/fortnite/api/matchmaking/session/:sessionId',
                 destination: '/api/fortnite/fortnite/api/matchmaking/session?sessionId=:sessionId'
+            },
+            // MP Join Session
+            {
+                source: '/fortnite/api/matchmaking/session/:sessionId/join',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session/join?sessionId=:sessionId'
             }
         ];
     },
