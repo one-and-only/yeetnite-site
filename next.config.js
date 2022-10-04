@@ -1,6 +1,8 @@
 // TODO Standardize error handling
 // i. use `status(400).json(...error);` for bad requests/invalid data
 
+// TODO Remove all req and res parameters that aren't used
+
 module.exports = {
     async rewrites() {
         return [
@@ -250,6 +252,11 @@ module.exports = {
                 source: '/fortnite/api/game/v2/privacy/account/:accountId',
                 destination: '/api/fortnite/fortnite/api/game/v2/privacy/account?accountId=:accountId'
             },
+            // MP Matchmaking Ticket
+            {
+                source: '/fortnite/api/game/v2/matchmakingservice/ticket/player/:accountId',
+                destination: '/api/fortnite/fortnite/api/game/v2/matchmakingservice/ticket/player?accountId=:accountId'
+            }
         ];
     },
     reactStrictMode: true,
