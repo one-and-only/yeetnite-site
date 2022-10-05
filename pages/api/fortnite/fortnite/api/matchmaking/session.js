@@ -14,16 +14,19 @@ export default async function session(req, res) {
       publicPlayers: true
     },
     where: {
-      id_string: req.query.session_id
+      id_string: req.query.sessionId
     }
   });
   if (!sessionInfo) {
-    res.status(400).send();
+    res.status(400).json({
+      success: false,
+      reason: "Invalid session ID"
+    });
     return;
   }
 
   res.json({
-    "id": req.query.session_id,
+    "id": req.query.sessionId,
     "ownerId": sessionInfo.ownerId,
     "ownerName": sessionInfo.ownerName,
     "serverName": sessionInfo.serverName,
