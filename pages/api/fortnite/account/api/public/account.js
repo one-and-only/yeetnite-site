@@ -1,11 +1,8 @@
 import { prisma } from '@lib/prisma';
+import { getFortniteVersion } from '@lib/seasonUtils';
 
 export default async function account(req, res) {
-    // only allow PUT/POST method
-    res.setHeader('Access-Control-Allow-Methods', 'PUT,POST');
-
     if (req.query.fullAccountInfo === 'true') {
-        // get user info from username
         const user = await prisma.users.findFirst({
             select: {
                 lastLogin: true,
@@ -19,9 +16,9 @@ export default async function account(req, res) {
         });
         if (!user) {
             res.json({ success: false, reason: "Account not found" });
+            return;
         }
 
-        // update last login time
         const lastLogin = new Date().toISOString();
         await prisma.users.update({
             data: {
@@ -45,24 +42,20 @@ export default async function account(req, res) {
                 "ageGroup": "UNKNOWN",
                 "headless": false,
                 "country": "US",
-                "preferredLanguage": user.preferredLanguage || "en",
+                "preferredLanguage": user.preferredLanguage,
                 "tfaEnabled": false
             }
         );
     } else {
         if (typeof req.query.accountId === 'object') {
-            switch (req.headers["user-agent"]) {
-                case "game=Fortnite, engine=UE4, build=++Fortnite+Release-Cert-CL-3741772":
-                    res.json({
-                        id: req.query.accountId,
-                        displayName: req.query.accountId,
-                        externalAuths: req.query.accountId
-                    });
-                    break;
-                default:
-                    res.json(req.query.accountId.map(id => { return { "id": id, "displayName": id, "externalAuths": {}} }));
-                    break;
-            }
+            const versionInfo = getFortniteVersion(req.headers["user-agent"]);
+            if (versionInfo.season < 6)
+                res.json({
+                    id: req.query.accountId,
+                    displayName: req.query.accountId,
+                    externalAuths: {}
+                });
+            else res.json(req.query.accountId.map(id => { return { "id": id, "displayName": id, "externalAuths": {}} }));
         } else {
             res.json(
                 [

@@ -1,6 +1,8 @@
 // TODO Standardize error handling
 // i. use `status(400).json(...error);` for bad requests/invalid data
 
+// TODO Remove all req and res parameters that aren't used
+
 module.exports = {
     async rewrites() {
         return [
@@ -213,7 +215,7 @@ module.exports = {
             // Find Player (Matchmaking)
             {
                 source: '/fortnite/api/matchmaking/session/findPlayer/:accountId',
-                destination: '/api/fortnite/fortnite/api/matchmaking/session/findPlayer?accountId=:accountId',
+                destination: '/api/fortnite/fortnite/api/matchmaking/findPlayer?accountId=:accountId',
             },
             // GetMcpTimeForLogin
             {
@@ -250,6 +252,31 @@ module.exports = {
                 source: '/fortnite/api/game/v2/privacy/account/:accountId',
                 destination: '/api/fortnite/fortnite/api/game/v2/privacy/account?accountId=:accountId'
             },
+            // MP Matchmaking Request
+            {
+                source: '/fortnite/api/matchmaking/session/matchMakingRequest',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session/matchMakingRequest'
+            },
+            // MP Matchmaking Ticket
+            {
+                source: '/fortnite/api/game/v2/matchmakingservice/ticket/player/:accountId',
+                destination: '/api/fortnite/fortnite/api/game/v2/matchmakingservice/ticket/player?accountId=:accountId'
+            },
+            // MP Matchmaking Session
+            {
+                source: '/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId',
+                destination: '/api/fortnite/fortnite/api/game/v2/matchmaking/account/session?accountId=:accountId&sessionId=:sessionId'
+            },
+            // MP Full Session Info
+            {
+                source: '/fortnite/api/matchmaking/session/:sessionId',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session?sessionId=:sessionId'
+            },
+            // MP Join Session
+            {
+                source: '/fortnite/api/matchmaking/session/:sessionId/join',
+                destination: '/api/fortnite/fortnite/api/matchmaking/session/join?sessionId=:sessionId'
+            }
         ];
     },
     reactStrictMode: true,

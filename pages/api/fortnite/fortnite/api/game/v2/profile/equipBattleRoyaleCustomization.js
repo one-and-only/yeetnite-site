@@ -1,6 +1,8 @@
 import { prisma } from "@lib/prisma";
 import athena from './profiles/athena.json';
 
+const indexed_types = ["itemwrap", "dance"]
+
 export default async function equipBattleRoyaleCustomization(req, res) {
     if (!(req.query.profileId === "athena")) {
         res.status(400).json({
@@ -10,11 +12,12 @@ export default async function equipBattleRoyaleCustomization(req, res) {
         return;
     }
 
-    let profileRevision = parseInt(req.query.rvn);
+    const profileRevision = parseInt(req.query.rvn);
+    const lockerItemName = req.body.slotName.toLowerCase();
+    const isIndexedItem = indexed_types.includes(lockerItemName); // Some cosmetics are "slot" based (emotes, weapon wraps, etc.)
     let profileChanges;
 
-    // "Dance" has an array of values for each of the emote slots
-    if (req.body.slotName == "Dance") {
+    if (isIndexedItem) {
         const user_id = (await prisma.users.findFirst({
             select: {
                 user_id: true
@@ -23,18 +26,19 @@ export default async function equipBattleRoyaleCustomization(req, res) {
                 username: req.query.accountId
             }
         })).user_id;
-        profileChanges = JSON.parse((await prisma.locker.findFirst({
-            select: {
-                favorite_dance: true
-            },
+
+        let lockerItemParams = {
+            select: {},
             where: {
                 user_id: user_id
             }
-        })).favorite_dance);
-        profileChanges[req.body.indexWithinSlot] = req.body.itemToSlot;
+        }
+        lockerItemParams.select[`favorite_${lockerItemName}`] = true;
+
+        const currentLockerItem = (await prisma.locker.findFirst(lockerItemParams))[`favorite_${lockerItemName}`];
+        profileChanges = JSON.parse(currentLockerItem);
+        profileChanges[parseInt(req.body.indexWithinSlot)] = req.body.itemToSlot;
         profileChanges = JSON.stringify(profileChanges);
-    } else {
-        profileChanges = req.body.itemToSlot;
     }
 
     // save the locker changes
@@ -63,7 +67,7 @@ export default async function equipBattleRoyaleCustomization(req, res) {
             {
                 "changeType": "statModified",
                 "name": `favorite_${req.body.slotName.toLowerCase()}`,
-                "value": (req.body.slotName == "Dance") ? JSON.parse(profileChanges) : req.body.itemToSlot,
+                "value": (isIndexedItem) ? JSON.parse(profileChanges) : req.body.itemToSlot,
             }
         ],
         "profileCommandRevision": athena.profileCommandRevision,

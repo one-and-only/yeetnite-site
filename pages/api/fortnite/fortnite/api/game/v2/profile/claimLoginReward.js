@@ -9,9 +9,9 @@ export default function claimLoginReward(req) {
     const serverTime = new Date().toISOString();
 
     return edgeResponse({
-        "profileRevision": parseInt(searchParams.rvn) + 1,
+        "profileRevision": parseInt(searchParams.get("rvn")) + 1,
         "profileId": "campaign",
-        "profileChangesBaseRevision": parseInt(searchParams.rvn),
+        "profileChangesBaseRevision": parseInt(searchParams.get("rvn")),
         "profileChanges": [
             {
                 "changeType": "statModified",
@@ -31,7 +31,7 @@ export default function claimLoginReward(req) {
                 }
             }
         ],
-        "profileCommandRevision": parseInt(searchParams.rvn) + 1 - 10,
+        "profileCommandRevision": parseInt(searchParams.get("rvn")) - 9,
         "serverTime": serverTime,
         "responseVersion": 1
     });

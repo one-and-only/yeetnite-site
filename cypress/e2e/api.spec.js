@@ -241,7 +241,12 @@ describe('Test REST API', () => {
         });
     });
     it('Public Account Variation 1 - Multiple Users', () => {
-        cy.request('/account/api/public/account?accountId=Revvz&accountId=Fischsalat').then(response => {
+        cy.request({
+            url: '/account/api/public/account?accountId=Revvz&accountId=Fischsalat',
+            headers: {
+                "User-Agent": "FortniteGame/++Fortnite+Release-6.21-CL-4526925 Windows/10.0.19044.1.256.64bit"
+            }
+        }).then(response => {
             expect(response.status).to.equal(200);
             expect(response.body).to.deep.equal([{ "id": "Revvz", "displayName": "Revvz", "externalAuths": {} }, { "id": "Fischsalat", "displayName": "Fischsalat", "externalAuths": {} }]);
         });

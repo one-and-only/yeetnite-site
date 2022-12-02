@@ -1,4 +1,5 @@
 import { prisma } from '@lib/prisma';
+import { getFortniteVersion } from '@lib/seasonUtils';
 
 async function getCreatedLastLogin(username) {
     return await prisma.users.findFirst({
@@ -53,7 +54,7 @@ export default async function queryProfile(req, res) {
                     favorite_pickaxe: true,
                     favorite_glider: true,
                     favorite_musicpack: true,
-                    favorite_itemwraps: true,
+                    favorite_itemwrap: true,
                     banner_icon: true
                 },
                 where: {
@@ -64,6 +65,7 @@ export default async function queryProfile(req, res) {
             athena.profileChanges[0].profile.created = createdLastLogin.created;
             athena.profileChanges[0].profile.updated = createdLastLogin.lastLogin;
             athena.profileChanges[0].profile.accountId = req.query.accountId;
+            athena.profileChanges[0].profile.stats.attributes.season_num = getFortniteVersion(req.headers["user-agent"]).season;
             // custom locker items
             athena.profileChanges[0].profile.stats.attributes.favorite_victorypose = lockerData.favorite_victorypose;
             athena.profileChanges[0].profile.stats.attributes.favorite_consumableemote = lockerData.favorite_consumableemote;
@@ -82,7 +84,7 @@ export default async function queryProfile(req, res) {
             athena.profileChanges[0].profile.stats.attributes.favorite_pickaxe = lockerData.favorite_pickaxe;
             athena.profileChanges[0].profile.stats.attributes.favorite_glider = lockerData.favorite_glider;
             athena.profileChanges[0].profile.stats.attributes.favorite_musicpack = lockerData.favorite_musicpack;
-            athena.profileChanges[0].profile.stats.attributes.favorite_itemwraps = JSON.parse(lockerData.favorite_itemwraps);
+            athena.profileChanges[0].profile.stats.attributes.favorite_itemwraps = JSON.parse(lockerData.favorite_itemwrap);
             athena.profileChanges[0].profile.stats.attributes.banner_icon = lockerData.banner_icon;
             athena.default.serverTime = serverTime;
             res.json(athena);

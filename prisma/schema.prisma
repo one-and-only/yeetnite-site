@@ -34,25 +34,12 @@ model locker {
   favorite_pickaxe         String @default("AthenaPickaxe:Pickaxe_Flamingo") @db.VarChar(255)
   favorite_glider          String @default("AthenaGlider:Umbrella_Gold") @db.VarChar(255)
   favorite_musicpack       String @default("") @db.VarChar(255)
-  favorite_itemwraps       String @default("[\"\",\"\",\"\",\"\",\"\",\"\",\"\"]") @db.VarChar(255)
+  favorite_itemwrap        String @default("[\"\",\"\",\"\",\"\",\"\",\"\",\"\"]") @db.Text
   banner_icon              String @default("BRSeason02Salt") @db.VarChar(255)
   user_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   users                    users  @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "locker_ibfk_1")
 
   @@index([user_id], map: "locker_idx_user_id")
-}
-
-model status {
-  status_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
-  rest_api_status            String @default("Online/Operational") @db.VarChar(255)
-  xmpp_status                String @default("Online/Operational") @db.VarChar(255)
-  matchmaking_status         String @default("Online/Operational") @db.VarChar(255)
-  rest_api_status_code       Int    @default(0) @db.TinyInt
-  xmpp_status_code           Int    @default(0) @db.TinyInt
-  matchmaking_status_code    Int    @default(0) @db.TinyInt
-  rest_api_status_comment    String @default("") @db.VarChar(255)
-  xmpp_status_comment        String @default("") @db.VarChar(255)
-  matchmaking_status_comment String @default("") @db.VarChar(255)
 }
 
 model users {
@@ -68,4 +55,201 @@ model users {
   preferredLanguage         String  @default("en") @db.Char(2)
   blockList                 String  @default("[]") @db.Text
   locker                    locker?
+}
+
+model matchmaking_sessions {
+  id                Int     @id @default(autoincrement()) @db.UnsignedInt
+  id_string         String  @db.VarChar(255)
+  ownerId           Int     @db.UnsignedInt
+  ownerName         String  @db.VarChar(255)
+  serverName        String  @db.VarChar(255)
+  serverAddress     String  @db.VarChar(255)
+  serverPort        Int     @db.UnsignedSmallInt
+  maxPublicPlayers  Int     @db.UnsignedTinyInt
+  openPublicPlayers Int     @db.UnsignedTinyInt
+  attributes        String  @db.Text
+  publicPlayers     String  @db.Text
+  started           Boolean
+  lastUpdated       String  @db.VarChar(255)
+}
+
+model pma__bookmark {
+  id    Int    @id @default(autoincrement()) @db.UnsignedInt
+  dbase String @default("") @db.VarChar(255)
+  user  String @default("") @db.VarChar(255)
+  label String @default("") @db.VarChar(255)
+  query String @db.Text
+}
+
+model pma__central_columns {
+  db_name       String  @db.VarChar(64)
+  col_name      String  @db.VarChar(64)
+  col_type      String  @db.VarChar(64)
+  col_length    String? @db.Text
+  col_collation String  @db.VarChar(64)
+  col_isNull    Boolean
+  col_extra     String? @default("") @db.VarChar(255)
+  col_default   String? @db.Text
+
+  @@id([db_name, col_name])
+}
+
+model pma__column_info {
+  id                           Int    @id @default(autoincrement()) @db.UnsignedInt
+  db_name                      String @default("") @db.VarChar(64)
+  table_name                   String @default("") @db.VarChar(64)
+  column_name                  String @default("") @db.VarChar(64)
+  comment                      String @default("") @db.VarChar(255)
+  mimetype                     String @default("") @db.VarChar(255)
+  transformation               String @default("") @db.VarChar(255)
+  transformation_options       String @default("") @db.VarChar(255)
+  input_transformation         String @default("") @db.VarChar(255)
+  input_transformation_options String @default("") @db.VarChar(255)
+
+  @@unique([db_name, table_name, column_name], map: "db_name")
+}
+
+model pma__designer_settings {
+  username      String @id @db.VarChar(64)
+  settings_data String @db.Text
+}
+
+model pma__export_templates {
+  id            Int    @id @default(autoincrement()) @db.UnsignedInt
+  username      String @db.VarChar(64)
+  export_type   String @db.VarChar(10)
+  template_name String @db.VarChar(64)
+  template_data String @db.Text
+
+  @@unique([username, export_type, template_name], map: "u_user_type_template")
+}
+
+model pma__favorite {
+  username String @id @db.VarChar(64)
+  tables   String @db.Text
+}
+
+model pma__history {
+  id        BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  username  String   @default("") @db.VarChar(64)
+  db        String   @default("") @db.VarChar(64)
+  table     String   @default("") @db.VarChar(64)
+  timevalue DateTime @default(now()) @db.Timestamp(0)
+  sqlquery  String   @db.Text
+
+  @@index([username, db, table, timevalue], map: "username")
+}
+
+model pma__navigationhiding {
+  username   String @db.VarChar(64)
+  item_name  String @db.VarChar(64)
+  item_type  String @db.VarChar(64)
+  db_name    String @db.VarChar(64)
+  table_name String @db.VarChar(64)
+
+  @@id([username, item_name, item_type, db_name, table_name])
+}
+
+model pma__pdf_pages {
+  db_name    String @default("") @db.VarChar(64)
+  page_nr    Int    @id @default(autoincrement()) @db.UnsignedInt
+  page_descr String @default("") @db.VarChar(50)
+
+  @@index([db_name], map: "db_name")
+}
+
+model pma__recent {
+  username String @id @db.VarChar(64)
+  tables   String @db.Text
+}
+
+model pma__relation {
+  master_db     String @default("") @db.VarChar(64)
+  master_table  String @default("") @db.VarChar(64)
+  master_field  String @default("") @db.VarChar(64)
+  foreign_db    String @default("") @db.VarChar(64)
+  foreign_table String @default("") @db.VarChar(64)
+  foreign_field String @default("") @db.VarChar(64)
+
+  @@id([master_db, master_table, master_field])
+  @@index([foreign_db, foreign_table], map: "foreign_field")
+}
+
+model pma__savedsearches {
+  id          Int    @id @default(autoincrement()) @db.UnsignedInt
+  username    String @default("") @db.VarChar(64)
+  db_name     String @default("") @db.VarChar(64)
+  search_name String @default("") @db.VarChar(64)
+  search_data String @db.Text
+
+  @@unique([username, db_name, search_name], map: "u_savedsearches_username_dbname")
+}
+
+model pma__table_coords {
+  db_name         String @default("") @db.VarChar(64)
+  table_name      String @default("") @db.VarChar(64)
+  pdf_page_number Int    @default(0)
+  x               Float  @default(0) @db.Float
+  y               Float  @default(0) @db.Float
+
+  @@id([db_name, table_name, pdf_page_number])
+}
+
+model pma__table_info {
+  db_name       String @default("") @db.VarChar(64)
+  table_name    String @default("") @db.VarChar(64)
+  display_field String @default("") @db.VarChar(64)
+
+  @@id([db_name, table_name])
+}
+
+model pma__table_uiprefs {
+  username    String   @db.VarChar(64)
+  db_name     String   @db.VarChar(64)
+  table_name  String   @db.VarChar(64)
+  prefs       String   @db.Text
+  last_update DateTime @default(now()) @db.Timestamp(0)
+
+  @@id([username, db_name, table_name])
+}
+
+model pma__tracking {
+  db_name         String   @db.VarChar(64)
+  table_name      String   @db.VarChar(64)
+  version         Int      @db.UnsignedInt
+  date_created    DateTime @db.DateTime(0)
+  date_updated    DateTime @db.DateTime(0)
+  schema_snapshot String   @db.Text
+  schema_sql      String?  @db.Text
+  data_sql        String?  @db.LongText
+  tracking        String?
+  tracking_active Int      @default(1) @db.UnsignedInt
+
+  @@id([db_name, table_name, version])
+}
+
+model pma__userconfig {
+  username    String   @id @db.VarChar(64)
+  timevalue   DateTime @default(now()) @db.Timestamp(0)
+  config_data String   @db.Text
+}
+
+model pma__usergroups {
+  usergroup String                  @db.VarChar(64)
+  tab       String                  @db.VarChar(64)
+  allowed   pma__usergroups_allowed @default(N)
+
+  @@id([usergroup, tab, allowed])
+}
+
+model pma__users {
+  username  String @db.VarChar(64)
+  usergroup String @db.VarChar(64)
+
+  @@id([username, usergroup])
+}
+
+enum pma__usergroups_allowed {
+  Y
+  N
 }

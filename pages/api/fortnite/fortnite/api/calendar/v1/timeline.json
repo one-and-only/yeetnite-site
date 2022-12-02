@@ -11,42 +11,42 @@
                    "region":{
                       "OCE":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "CN":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "NAE":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "NAW":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "EU":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "BR":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "ASIA":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       },
                       "NA":{
                          "eventFlagsForcedOn":[
-                            "Playlist_DefaultDuo"
+                            "Playlist_DefaultSolo"
                          ]
                       }
                    }
@@ -61,12 +61,12 @@
                 "validFrom":"2020-01-01T20:28:47.830Z",
                 "activeEvents":[
                    {
-                      "eventType":"EventFlag.Season6",
+                      "eventType":"",
                       "activeUntil":"9999-01-01T00:00:00.000Z",
                       "activeSince":"2020-01-01T00:00:00.000Z"
                    },
                    {
-                      "eventType":"EventFlag.LobbySeason6",
+                      "eventType":"",
                       "activeUntil":"9999-01-01T14:00:00.000Z",
                       "activeSince":"2020-01-01T13:00:00.000Z"
                    }
@@ -78,8 +78,8 @@
                    "eventNamedWeights":{
                       
                    },
-                   "seasonNumber":6,
-                   "seasonTemplateId":"AthenaSeason:athenaseason6",
+                   "seasonNumber":-1,
+                   "seasonTemplateId":"",
                    "matchXpBonusPoints":0,
                    "seasonBegin":"2020-01-01T13:00:00Z",
                    "seasonEnd":"9999-01-01T14:00:00Z",
