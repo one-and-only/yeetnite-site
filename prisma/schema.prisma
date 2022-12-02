@@ -34,7 +34,7 @@ model locker {
   favorite_pickaxe         String @default("AthenaPickaxe:Pickaxe_Flamingo") @db.VarChar(255)
   favorite_glider          String @default("AthenaGlider:Umbrella_Gold") @db.VarChar(255)
   favorite_musicpack       String @default("") @db.VarChar(255)
-  favorite_itemwrap        String @default("[\"\",\"\",\"\",\"\",\"\",\"\",\"\"]") @db.VarChar(255)
+  favorite_itemwrap        String @default("[\"\",\"\",\"\",\"\",\"\",\"\",\"\"]") @db.Text
   banner_icon              String @default("BRSeason02Salt") @db.VarChar(255)
   user_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   users                    users  @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "locker_ibfk_1")
