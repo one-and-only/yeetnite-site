@@ -54,7 +54,7 @@ export default async function queryProfile(req, res) {
                     favorite_pickaxe: true,
                     favorite_glider: true,
                     favorite_musicpack: true,
-                    favorite_itemwraps: true,
+                    favorite_itemwrap: true,
                     banner_icon: true
                 },
                 where: {
@@ -84,7 +84,7 @@ export default async function queryProfile(req, res) {
             athena.profileChanges[0].profile.stats.attributes.favorite_pickaxe = lockerData.favorite_pickaxe;
             athena.profileChanges[0].profile.stats.attributes.favorite_glider = lockerData.favorite_glider;
             athena.profileChanges[0].profile.stats.attributes.favorite_musicpack = lockerData.favorite_musicpack;
-            athena.profileChanges[0].profile.stats.attributes.favorite_itemwraps = JSON.parse(lockerData.favorite_itemwraps);
+            athena.profileChanges[0].profile.stats.attributes.favorite_itemwraps = JSON.parse(lockerData.favorite_itemwrap);
             athena.profileChanges[0].profile.stats.attributes.banner_icon = lockerData.banner_icon;
             athena.default.serverTime = serverTime;
             res.json(athena);
