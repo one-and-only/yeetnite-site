@@ -13,9 +13,8 @@ export default function Features() {
             <h2 id="supported-clients">Supported Clients</h2>
             <hr width="40%" />
             <ul>
-               <li>Season 0 &amp; 1: <strong>1.X</strong></li>
-               <li>Season 6: <strong>6.21</strong>, <strong>6.30</strong> Officially tested (all should work)</li>
-               <li>Season 7: <strong>None</strong> officially tested (all should work)</li>
+               <li>Seasons <strong>0-9</strong>: Officially tested (all should work)</li>
+               <li>Seasons 10 through Chapter 2 Season 8: Untested (all should work)</li>
             </ul>
             <br />
             <h2 id="supported-features">Supported Features</h2>
